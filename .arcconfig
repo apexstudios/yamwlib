@@ -1,0 +1,11 @@
+{
+  "project_id" : "YamwLib",
+  "conduit_uri" : "http://phabricator.burningreality.de/",
+  "lint.engine" : "YamwLintEngine",
+  "unit.engine" : "PhpunitTestEngine",
+  "phpunit_config" : "phpunit.xml.dist",
+  "lint.phpcs.standard" : "PSR2",
+  "load": [
+    "arclibs/"
+  ]
+}

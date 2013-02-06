@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="Tests/bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         strict="true"
+         verbose="true">
+       
+  <testsuites>
+    <testsuite name="YamwTests">
+      <directory suffix="Test.php">Tests/</directory>
+      <directory suffix="Test.php">src/</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist addUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">src</directory>
+      <exclude>
+        <file>src/index.php</file>
+        <file>src/mongodbadmin.php</file>
+        <file>src/test.php</file>
+        <file>src/t.php</file>
+        <file>src/t2.php</file>
+        <directory suffix=".php">src/Content</directory>
+        <directory suffix=".php">src/Templates</directory>
+        <directory suffix=".php">src/config</directory>
+      </exclude>
+    </whitelist>
+  </filter>
+
+</phpunit>

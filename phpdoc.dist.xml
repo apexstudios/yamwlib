@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+	<parser>
+		<target>build/api</target>
+		<markers>
+			<item>TODO</item>
+			<item>FIXME</item>
+		</markers>
+	</parser>
+	<transformer>
+		<target>build/api</target>
+	</transformer>
+	<files>
+		<directory>src/</directory>
+        <ignore>src/test.php</ignore>
+        <ignore>src/t.php</ignore>
+        <ignore>src/t2.php</ignore>
+        <ignore>src/mongodbadmin.php</ignore>
+	</files>
+</phpdoc>

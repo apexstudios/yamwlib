@@ -1,0 +1,11 @@
+build/coverage
+build/api
+build/logs
+src/test.php
+src/test2.php
+src/t.php
+src/t2.php
+src/mongodbadmin.php
+/nbproject/*
+*.php~
+#*.php#

@@ -1,0 +1,15 @@
+*.php	text
+*.js	text
+*.css	text
+*.less	text
+*.xml	text
+*.dist	text
+*.txt	text
+*.sql	text
+
+*.png	binary
+*.jepg	binary
+*.jpg	binary
+*.gif	binary
+
+*.sdf	binary
