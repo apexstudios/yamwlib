@@ -12,6 +12,7 @@ namespace YamwLibs\Infrastructure\Config;
  */
 class Config
 {
+    private static $config_path = 'config/config.php';
     private static $config_file;
     private static $initialized = false;
 
@@ -21,10 +22,31 @@ class Config
      */
     public static function init()
     {
-        self::$config_file = include path('config/config.php');
+        self::$config_file = include path(self::$config_path);
         self::$initialized = true;
 
         return new static;
+    }
+
+    /**
+     * Sets the config file to the new location
+     *
+     * @param type $newPath
+     * The new location of the config file
+     */
+    public static function setConfigPath($newPath)
+    {
+        self::$config_path = $newPath;
+    }
+
+    /**
+     * Flushes the config cache, initiating a reload of the config file at the
+     * next interaction with Config
+     */
+    public static function flushCache()
+    {
+        self::$config_file = null;
+        self::$initialized = false;
     }
 
     /**
@@ -46,7 +68,8 @@ class Config
     }
 
     /**
-     * Sets a variable to a new value
+     * Sets a variable to a new value. Note that this won't save the config
+     * variable. To do that, you have to use ConfigParser.
      *
      * @param string $name
      * @param string $content
