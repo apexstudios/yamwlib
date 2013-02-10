@@ -12,35 +12,8 @@ namespace YamwLibs\Infrastructure\Config;
  */
 class Config
 {
-    private static $instance;
-
     private static $config_file;
     private static $initialized = false;
-
-    /**
-     * @deprecated
-     */
-    private function __construct()
-    {
-
-    }
-
-    /**
-     * If not already existing, creates a new instance of this class and loads all configuration files
-     *
-     * @deprecated
-     *
-     * @return \Yamw\Lib\Config
-     */
-    public static function register()
-    {
-        if (!isset(self::$instance)) {
-            $class = __CLASS__;
-            self::$instance = new $class;
-            self::init();
-        }
-        return self::$instance;
-    }
 
     /**
      * Loads the config
@@ -91,23 +64,5 @@ class Config
         }
 
         return new static();
-    }
-
-    /**
-     * Returns the config parameters currently loaded
-     */
-    public function getConfigFile()
-    {
-        return self::$config_file;
-    }
-
-    /**
-     *
-     * @see \Yamw\Lib\Config::get
-     * @param string $name
-     */
-    public function __get($name)
-    {
-        return self::get($name);
     }
 }
