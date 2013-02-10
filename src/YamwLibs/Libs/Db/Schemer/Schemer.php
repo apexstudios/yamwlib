@@ -1,7 +1,7 @@
 <?php
 namespace YamwLibs\Libs\Db\Schemer;
 
-use Yamw\Lib\Config;
+use YamwLibs\Infrastructure\Config\Config;
 use Yamw\Lib\MySql\AdvMySql_Conn;
 
 /**
@@ -216,6 +216,7 @@ class Schemer
     public static function setSchemeLocation($newLoc)
     {
         self::$configPath = $newLoc;
+        static::$loaded_scheme = false;
     }
 
     /**
@@ -225,7 +226,7 @@ class Schemer
      */
     private static function loadScheme()
     {
-        $scheme_location = path(self::$configPath);
+        $scheme_location = self::$configPath;
         if (file_exists($scheme_location)) {
             static::$scheme = include $scheme_location;
             static::$loaded_scheme = true;

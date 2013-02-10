@@ -22,7 +22,7 @@ class Config
      */
     public static function init()
     {
-        self::$config_file = include path(self::$config_path);
+        self::$config_file = include self::$config_path;
         self::$initialized = true;
 
         return new static;
