@@ -22,16 +22,21 @@ class Schemer
 {
     /**
      * This' holding our cute lil' scheme
-     * @property array
+     * @var array
      */
     private static $scheme = array();
 
     /**
      * Whether the scheme config has already been loaded
      *
-     * @property bool
+     * @var bool
      */
     private static $loaded_scheme = false;
+
+    /**
+     * @var string
+     */
+    private static $configPath = '/config/scheme.php';
 
     /**
      * Whether a table exists in the scheme configuration
@@ -54,7 +59,8 @@ class Schemer
             static::loadScheme();
         }
 
-        return isset(static::$scheme[$name]) && is_array(static::$scheme[$name]);
+        return isset(static::$scheme[$name]) &&
+            is_array(static::$scheme[$name]);
     }
 
     /**
@@ -113,7 +119,9 @@ class Schemer
     {
         if (static::isTableInScheme($name)) {
             $scheme = static::getTableScheme($name);
-            return $scheme['prefix_name'] === true ? Config::get('mysql.table_prefix').$name : $scheme['prefix_name'].$name;
+            return $scheme['prefix_name'] === true ?
+                Config::get('mysql.table_prefix').$name :
+                $scheme['prefix_name'].$name;
         }
     }
 
@@ -150,8 +158,11 @@ class Schemer
      *
      * @throws \RuntimeException
      */
-    public static function resetTable($name, $name_scheme = null, $name_data = null)
-    {
+    public static function resetTable(
+        $name,
+        $name_scheme = null,
+        $name_data = null
+    ) {
         if (!static::isTableInScheme($name)) {
             throw new \RuntimeException("Table $name could not be reset.");
         }
@@ -170,16 +181,18 @@ class Schemer
         $name_data = path("/../Resources/$dbtype/Data/$name_data.sql");
 
         if (!(file_exists($name_scheme) && file_exists($name_data))) {
-            throw new \RuntimeException("Could not load $name for reset.\n$name_scheme");
+            throw new \RuntimeException(
+                "Could not load $name for reset.\n$name_scheme"
+            );
         }
 
         $table_name = static::getTableName($name);
 
-        $query_scheme = file_get_contents($name_scheme);
-        $query_data = file_get_contents($name_data);
+        $raw_scheme = file_get_contents($name_scheme);
+        $raw_data = file_get_contents($name_data);
 
-        $query_scheme = str_replace('{TABLE_NAME}', $table_name, $query_scheme);
-        $query_data = str_replace('{TABLE_NAME}', $table_name, $query_data);
+        $query_scheme = str_replace('{TABLE_NAME}', $table_name, $raw_scheme);
+        $query_data = str_replace('{TABLE_NAME}', $table_name, $raw_data);
 
         $db = AdvMySql_Conn::getConn();
 
@@ -190,17 +203,36 @@ class Schemer
     }
 
     /**
+     * Sets the location of the scheme config file.
+     *
+     * NOTE: This must be called first before any action with Schemer is taken,
+     * since the file will be cached internally once loaded, which happens when
+     * the first action is taken, like on a database query.
+     *
+     * @param string $newLoc
+     * The new location of the scheme config file. Note that this must be
+     * relative to the library root.
+     */
+    public static function setSchemeLocation($newLoc)
+    {
+        self::$configPath = $newLoc;
+    }
+
+    /**
      * Loads the scheme config into storage
      *
      * @throws \RuntimeException
      */
     private static function loadScheme()
     {
-        $scheme_location = path('/config/scheme.php');
+        $scheme_location = path(self::$configPath);
         if (file_exists($scheme_location)) {
             static::$scheme = include $scheme_location;
+            static::$loaded_scheme = true;
         } else {
-            throw new \RuntimeException("Database scheme could not be loaded! Error ChuckNorris.");
+            throw new \RuntimeException(
+                "Database scheme could not be loaded! Error ChuckNorris."
+            );
         }
     }
 }
