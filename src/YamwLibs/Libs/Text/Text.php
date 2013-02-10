@@ -1,6 +1,17 @@
 <?php
 namespace YamwLibs\Libs\Text;
 
+/**
+ * Provides methods to generate/process text strings. Also used for
+ * localization. So watch out.
+ *
+ * NOTE: Not really functional yet, it just returns the string either "AS IS" or
+ * processed by `sprintf()`
+ *
+ * @author AnhNhan <anhnhan@outlook.com>
+ * @package YamwLibs
+ * @subpackage Text
+ */
 class Text
 {
     const STD_PROVIDER = "DefaultTextProvider";
