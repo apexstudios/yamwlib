@@ -52,7 +52,7 @@
  </target>
 
  <target name="phploc" description="Measure project size using PHPLOC">
-  <exec executable="phploc.bat">
+  <exec executable="phploc">
    <arg value="--log-csv" />
    <arg value="${basedir}/build/logs/phploc.csv" />
    <arg path="${basedir}/src" />
@@ -69,7 +69,7 @@
  </target>
 
  <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
-  <exec executable="phpcs.bat">
+  <exec executable="phpcs">
    <arg value="--report=checkstyle" />
    <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
    <arg value="--standard=PSR2" />
@@ -79,7 +79,7 @@
  </target>
 
  <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-  <exec executable="phpmd.bat">
+  <exec executable="phpmd">
    <arg path="${basedir}/src" />
    <arg value="xml" />
    <arg value="${basedir}/build/phpmd.xml" />
@@ -89,7 +89,7 @@
  </target>
 
  <target name="phpcpd" description="Find duplicate code using PHPCPD">
-  <exec executable="phpcpd.bat">
+  <exec executable="phpcpd">
    <arg value="--log-pmd" />
    <arg value="${basedir}/build/logs/pmd-cpd.xml" />
    <arg path="${basedir}/src" />
@@ -97,11 +97,14 @@
  </target>
 
  <target name="phpunit" description="Run unit tests with PHPUnit">
-  <exec executable="${basedir}/phpunit.bat" failonerror="false"/>
+  <exec executable="phpunit" failonerror="false">
+    <arg value="-c" />
+    <arg path="phpunit-ci.xml.dist" />
+  </exec>
  </target>
 
  <target name="phpdoc2" description="Generate documentation">
-  <exec executable="phpdoc.bat" failonerror="false">
+  <exec executable="phpdoc" failonerror="false">
     <arg value="-c" />
     <arg path="${basedir}/phpdoc.dist.xml" />
   </exec>
