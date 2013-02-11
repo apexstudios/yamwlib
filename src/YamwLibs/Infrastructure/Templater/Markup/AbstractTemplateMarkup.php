@@ -15,7 +15,7 @@ abstract class AbstractTemplateMarkup
 
     public function getType()
     {
-        return basename(get_class($this));
+        return basename(str_replace("\\", "/", get_class($this)));
     }
 
     /**
