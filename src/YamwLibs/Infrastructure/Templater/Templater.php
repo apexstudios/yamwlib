@@ -76,12 +76,11 @@ class Templater
 
     public static function processTemplate($crit = true)
     {
-        // Stub - we'll replace this with a proper one another time
-        $markupMgr = new MarkupManager;
-
         if (($crit ? self::$proc_crit : self::$proc_uncrit)) {
             return false;
         }
+
+        $markupMgr = MarkupManager::getInstance();
 
         foreach ($markupMgr as $markup) {
             $pattern = '{'.$markup->getPattern().'}';

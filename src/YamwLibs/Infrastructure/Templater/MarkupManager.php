@@ -10,7 +10,21 @@ namespace YamwLibs\Infrastructure\Templater;
  */
 class MarkupManager implements \IteratorAggregate
 {
+    /**
+     * @var MarkupManager
+     */
+    private static $instance;
+
     private $markup = array();
+
+    public static function getInstance()
+    {
+        if (!isset(self::$instance)) {
+            $class = __CLASS__;
+            self::$instance = new $class;
+        }
+        return self::$instance;
+    }
 
     /**
      * Adds a template markup instance to the markup stack
