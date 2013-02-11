@@ -13,7 +13,7 @@ class Profiler
     /**
      * @var Profiler
      */
-    private $instance;
+    private static $instance;
 
     /**
      * @var int
