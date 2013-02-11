@@ -20,7 +20,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
     {
         $timeStart = microtime(true);
 
-        $id = $this->profiler->simpleProfiler();
+        $id = $this->profiler->simpleProfiler("some name");
 
         usleep(5000);
 
