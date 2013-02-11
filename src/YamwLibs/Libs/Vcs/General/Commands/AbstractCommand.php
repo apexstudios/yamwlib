@@ -10,6 +10,8 @@ abstract class AbstractCommand
 {
     private $cwd;
 
+    private $options = array();
+
     public function __construct($cwd)
     {
         chdir($cwd);
@@ -33,7 +35,47 @@ abstract class AbstractCommand
         return $this->cwd;
     }
 
+    protected function addOption($option, $name)
+    {
+        $this->options[$name] = $option;
+
+        return $this;
+    }
+
+    protected function getOptions()
+    {
+        return $this->options;
+    }
+
+    protected function getOptionsString()
+    {
+        $options = "";
+        $allowed = $this->getAllowedParameters();
+
+        foreach ($this->options as $name => $option) {
+            if (!in_array($name, $allowed)) {
+                break;
+            }
+
+            $options .= $option . " ";
+        }
+
+        return $option;
+    }
+
     abstract public function getCommandBinary();
 
-    abstract public function getCommand();
+    abstract function getSubCommand();
+
+    public function getCommand()
+    {
+        return sprintf(
+            "%s %s %s",
+            $this->getCommandBinary(),
+            $this->getSubCommand(),
+            $this->getOptionsString()
+        );
+    }
+
+    abstract public function getAllowedParameters();
 }

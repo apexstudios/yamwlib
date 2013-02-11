@@ -12,19 +12,28 @@ use YamwLibs\Libs\Vcs\General;
  */
 class Svn extends General\AbstractVcs
 {
+    public function cat($file)
+    {
+        $command = new Commands\SvnCatCommand(
+            $this->getCwd(),
+            $this->getUrl() . $file
+        );
+
+        return $command;
+    }
+
     public function checkout($rev = null)
     {
-        $command = "svn co";
-        $command .= " --non-interactive";
-        $command .= ' "' . $this->getUrl() . '"';
-        if ($rev !== null && is_int($rev)) {
-            $command .= " -r $rev";
+        $command = new Commands\SvnCheckoutCommand(
+            $this->getCwd(),
+            $this->getUrl()
+        );
+
+        if ($rev) {
+            $command->rev($rev);
         }
 
-        $output = array();
-        $this->exec($command, $output, $return);
-        echo implode("\n", $output);
-        return $return;
+        return $command;
     }
 
     public function update($rev = null)

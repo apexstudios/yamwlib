@@ -38,9 +38,29 @@ class SvnTest extends \PHPUnit_Framework_TestCase
 
     public function testCanCheckout()
     {
-        $return_code = $this->svn->checkout();
+        $command = $this->svn->checkout();
+        $return_code = null;
+        $command->runCommand($return_code);
+
         self::assertSame(0, $return_code);
 
         self::assertTrue(file_exists(self::$cwd . "/monolog/monolog/src/Monolog/Logger.php"));
+    }
+
+    public function testCanCatFile()
+    {
+        $this->testCanCheckout();
+
+        $command = $this->svn->cat("/monolog/src/Monolog/Logger.php");
+        $return_code = null;
+        $output = implode("\n", $command->runCommand($return_code));
+
+        self::assertSame(0, $return_code);
+
+        $cmpPath = self::$cwd . "/monolog/monolog/src/Monolog/Logger.php";
+        self::assertEquals(
+            trim(file_get_contents($cmpPath)),
+            trim($output)
+        );
     }
 }

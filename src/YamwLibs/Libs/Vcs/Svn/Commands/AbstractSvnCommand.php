@@ -15,17 +15,49 @@ abstract class AbstractSvnCommand extends Commands\AbstractCommand
         return "svn";
     }
 
-    abstract function getSubCommand();
-
-    abstract function getCommandParameters();
-
-    public function getCommand()
+    protected function getOptionsString()
     {
-        return sprintf(
-            "%s %s %s",
-            $this->getCommandBinary(),
-            $this->getSubCommand(),
-            $this->getCommandParameters()
-        );
+        $string = parent::getOptionsString();
+        // $string .= " --non-interactive --trust-server-cert";
+
+        return $string;
+    }
+
+    public function rev($revision)
+    {
+        if (!(is_infinite($revision) && $revision == "HEAD")) {
+            throw new \InvalidArgumentException("Bad revision supplied.");
+        }
+
+        $this->addOption("--revision $revision", "rev");
+
+        return $this;
+    }
+
+    public function quiet()
+    {
+        $this->addOption("--quiet", "quiet");
+
+        return $this;
+    }
+
+    public function ignoreExternals()
+    {
+        $this->addOption("--ignore-externals", "ign-ext");
+
+        return $this;
+    }
+
+    public function depth($depth = "infinity") {
+        $this->addOption("--depth $depth", "depth");
+
+        return $this;
+    }
+
+    public function force()
+    {
+        $this->addOption("--force", "force");
+
+        return $this;
     }
 }
