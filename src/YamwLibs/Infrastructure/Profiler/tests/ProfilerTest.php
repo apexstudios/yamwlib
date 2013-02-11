@@ -32,8 +32,8 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
         self::assertLessThan($profiler['endTime'], $profiler['startTime']);
 
         // Our measured start and end times are roughly equal
-        self::assertEquals($timeEnd, $profiler['endTime'], null, 0.0001);
-        self::assertEquals($timeStart, $profiler['startTime'], null, 0.0001);
+        self::assertEquals($timeEnd, $profiler['endTime'], null, 0.1);
+        self::assertEquals($timeStart, $profiler['startTime'], null, 0.1);
     }
 
     public function testSqlNumRows()
