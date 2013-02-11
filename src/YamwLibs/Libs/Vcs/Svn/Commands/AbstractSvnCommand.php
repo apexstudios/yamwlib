@@ -19,6 +19,7 @@ abstract class AbstractSvnCommand extends Commands\AbstractCommand
     {
         $string = parent::getOptionsString();
         // $string .= " --non-interactive --trust-server-cert";
+        $string .= " --non-interactive";
 
         return $string;
     }
@@ -32,6 +33,11 @@ abstract class AbstractSvnCommand extends Commands\AbstractCommand
         $this->addOption("--revision $revision", "rev");
 
         return $this;
+    }
+
+    public function recursive()
+    {
+        $this->addOption("--recursive", "rec");
     }
 
     public function quiet()
@@ -57,6 +63,20 @@ abstract class AbstractSvnCommand extends Commands\AbstractCommand
     public function force()
     {
         $this->addOption("--force", "force");
+
+        return $this;
+    }
+
+    public function parents()
+    {
+        $this->addOption("--parents", "parent");
+
+        return $this;
+    }
+
+    public function targets($file)
+    {
+        $this->addOption("--targets $file", "target");
 
         return $this;
     }
