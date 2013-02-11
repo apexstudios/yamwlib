@@ -6,6 +6,6 @@ src/test2.php
 src/t.php
 src/t2.php
 src/mongodbadmin.php
-/nbproject/*
+nbproject
 *.php~
 #*.php#
