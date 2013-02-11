@@ -12,6 +12,7 @@
 	</transformer>
 	<files>
 		<directory>src/</directory>
+        <ignore>*Test.php</ignore>
         <ignore>src/test.php</ignore>
         <ignore>src/t.php</ignore>
         <ignore>src/t2.php</ignore>
