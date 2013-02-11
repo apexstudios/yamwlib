@@ -96,6 +96,11 @@ class Profiler
         return $this->profilerLog[$profilerId];
     }
 
+    public function &getAllProfilers()
+    {
+        return $this->profilerLog;
+    }
+
     public function sqlProfiler($query)
     {
         $this->numQueries++;
