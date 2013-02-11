@@ -8,6 +8,7 @@ namespace YamwLibs\Libs\Text\Storage;
  *
  * @author AnhNhan <anhnhan@outlook.com>
  * @package YamwLibs
+ * @subpackage Text
  */
 class MongoStorage extends AbstractTextStorage
 {
