@@ -6,7 +6,7 @@ namespace YamwLibs\Libs\Vcs\Svn\Commands;
  * @package YamwLibs
  * @subpackage Vcs
  */
-class SvnInfoCommand extends AbstractSvnCommand
+class SvnListCommand extends AbstractSvnCommand
 {
     public function __construct($cwd, $path = null)
     {
@@ -20,17 +20,17 @@ class SvnInfoCommand extends AbstractSvnCommand
     public function getAllowedParameters()
     {
         return array(
+            'depth',
+            'inc',
             'rev',
             'rec',
+            'verbose',
             'xml',
-            'inc',
-            'depth',
-            'path',
         );
     }
 
     public function getSubCommand()
     {
-        return 'info';
+        return 'list';
     }
 }

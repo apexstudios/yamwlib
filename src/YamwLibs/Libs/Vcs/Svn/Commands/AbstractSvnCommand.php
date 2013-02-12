@@ -80,4 +80,25 @@ abstract class AbstractSvnCommand extends Commands\AbstractCommand
 
         return $this;
     }
+
+    public function incremental()
+    {
+        $this->addOption("--incremental", "inc");
+
+        return $this;
+    }
+
+    public function xml()
+    {
+        $this->addOption("--xml", "xml");
+
+        return $this;
+    }
+
+    public function verbose()
+    {
+        $this->addOption("--verbose", "verbose");
+
+        return $this;
+    }
 }
