@@ -84,6 +84,10 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
     {
         $mockFilePath = __DIR__ . "/mocks/" . $mockFileName;
 
+        if (is_array($actual)) {
+            $actual = implode("\n", $actual);
+        }
+
         self::assertEquals(
             trim(file_get_contents($mockFilePath)),
             trim($actual)
