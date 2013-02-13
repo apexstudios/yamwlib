@@ -14,7 +14,6 @@ abstract class AbstractCommand
 
     public function __construct($cwd)
     {
-        chdir($cwd);
         $this->cwd = $cwd;
     }
 
@@ -25,6 +24,7 @@ abstract class AbstractCommand
 
     public function runCommand(&$ret_val = null)
     {
+        chdir($cwd);
         $output = array();
         exec($this->getCommand(), $output, $ret_val);
         return $output;
