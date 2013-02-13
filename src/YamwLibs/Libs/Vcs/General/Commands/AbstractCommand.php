@@ -78,4 +78,14 @@ abstract class AbstractCommand
     }
 
     abstract public function getAllowedParameters();
+
+    public function path($path)
+    {
+        return $this->addOption('"' . $path . '"', 'path');
+    }
+
+    public function url($url)
+    {
+        return $this->addOption('"' . $url . '"', 'url');
+    }
 }
