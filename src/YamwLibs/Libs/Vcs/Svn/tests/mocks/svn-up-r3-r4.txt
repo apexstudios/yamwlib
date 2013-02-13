@@ -1,0 +1,3 @@
+Updating '.':
+D    trunk\TestClass.php
+Updated to revision 4.
