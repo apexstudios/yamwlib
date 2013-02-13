@@ -42,6 +42,22 @@ abstract class AbstractCommand
         return $this;
     }
 
+    protected function overwriteExistingOption($name, $newOption)
+    {
+        if (isset($this->options[$name])) {
+            $this->options[$name] = $newOption;
+
+            return $this;
+        } else {
+            throw new \RuntimeException("Error: Can not overwrite nonexisting option $name");
+        }
+    }
+
+    protected function getOption($name)
+    {
+        return isset($this->options[$name]) ? $this->options[$name] : null;
+    }
+
     protected function getOptions()
     {
         return $this->options;
