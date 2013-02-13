@@ -101,4 +101,18 @@ abstract class AbstractSvnCommand extends Commands\AbstractCommand
 
         return $this;
     }
+
+    public function diff()
+    {
+        $this->addOption("--diff", "diff");
+
+        return $this;
+    }
+
+    public function limit($limit)
+    {
+        $this->addOption("--limit $limit", "limit");
+
+        return $this;
+    }
 }
