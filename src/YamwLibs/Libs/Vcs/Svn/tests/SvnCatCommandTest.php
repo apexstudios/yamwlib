@@ -30,7 +30,11 @@ class SvnCatCommandTest extends SharedSvnCommandTests
     }
 
     public function testCatFileFromRevision() {
-        $command1 = new SvnCatCommand($this->getUrl() . "/trunk/TestClass.php@2");
+        $command1 = new SvnCatCommand($this->getUrl() . "/trunk/TestClass.php");
+
+        // Set the revision
+        $command1->rev(2);
+
         // Run the update command
         $ret_val = -1;
         $output = $command1->runCommand($ret_val);
