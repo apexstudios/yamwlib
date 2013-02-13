@@ -44,12 +44,12 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
             DIRECTORY_SEPARATOR . $path;
     }
 
-    public function getUrl()
+    public static function getUrl()
     {
         return self::$url;
     }
 
-    private static function checkoutRepo($rev = 3)
+    protected static function checkoutRepo($rev = 3)
     {
         $command = new SvnCheckoutCommand(self::$cwd, self::$url);
 
