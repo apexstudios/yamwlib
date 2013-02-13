@@ -24,7 +24,7 @@ abstract class AbstractCommand
 
     public function runCommand(&$ret_val = null)
     {
-        chdir($cwd);
+        @chdir($this->cwd);
         $output = array();
         exec($this->getCommand(), $output, $ret_val);
         return $output;
