@@ -29,6 +29,6 @@ class SvnCheckoutCommandTest extends SharedSvnCommandTests
         // Assert that the Repo was successfully checked out
         self::assertTrue(file_exists($this->getCwdPath("trunk/TestClass2.php")));
         // Assert that it is the right file
-        self::assertFileMatches("trunk/TestClass2.php");
+        self::assertFileEqualsMock("trunk/TestClass2.php");
     }
 }

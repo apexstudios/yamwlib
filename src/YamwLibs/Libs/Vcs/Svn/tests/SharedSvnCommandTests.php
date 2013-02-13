@@ -67,7 +67,7 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public static function assertFileMatches($file, $rev = 3)
+    public static function assertFileEqualsMock($file, $rev = 3)
     {
         $mockFilePath = __DIR__ . "/mocks/" .
             str_replace('.php', '.r'.$rev.'.php', basename($file));
