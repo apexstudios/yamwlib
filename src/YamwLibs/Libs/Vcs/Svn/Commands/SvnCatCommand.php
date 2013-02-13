@@ -10,9 +10,8 @@ namespace YamwLibs\Libs\Vcs\Svn\Commands;
  */
 class SvnCatCommand extends AbstractSvnCommand
 {
-    public function __construct($cwd, $file)
+    public function __construct($file)
     {
-        parent::__construct($cwd);
         $this->addOption('"' . $file . '"', 'url');
     }
 
