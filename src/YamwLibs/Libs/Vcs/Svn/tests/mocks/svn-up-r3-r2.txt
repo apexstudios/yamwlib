@@ -1,4 +1,0 @@
-Updating '.':
-D    trunk\TestClass2.php
-U    trunk\TestClass.php
-Updated to revision 2.
