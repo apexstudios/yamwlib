@@ -60,7 +60,7 @@ abstract class AbstractCommand
             $options .= $option . " ";
         }
 
-        return $option;
+        return $options;
     }
 
     abstract public function getCommandBinary();
