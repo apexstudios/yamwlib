@@ -67,7 +67,8 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public static function assertFileMatches($file, $rev = 3) {
+    public static function assertFileMatches($file, $rev = 3)
+    {
         $mockFilePath = __DIR__ . "/mocks/" .
             str_replace('.php', '.r'.$rev.'.php', basename($file));
         $repoFilePath = self::getCwdPath($file);
@@ -76,6 +77,16 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
             trim(file_get_contents($mockFilePath)),
             trim(file_get_contents($repoFilePath)),
             "File {$file}@{$rev} did not match the mock file!"
+        );
+    }
+
+    public static function assertEqualsMock($mockFileName, $actual)
+    {
+        $mockFilePath = __DIR__ . "/mocks/" . $mockFileName;
+
+        self::assertEquals(
+            trim(trim(file_get_contents($mockFilePath))),
+            trim($actual)
         );
     }
 }
