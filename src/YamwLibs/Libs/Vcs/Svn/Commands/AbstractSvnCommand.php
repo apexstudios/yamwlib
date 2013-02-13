@@ -26,7 +26,7 @@ abstract class AbstractSvnCommand extends Commands\AbstractCommand
 
     public function rev($revision)
     {
-        if (!(is_infinite($revision) && $revision == "HEAD")) {
+        if (!(is_int($revision) || $revision == "HEAD")) {
             throw new \InvalidArgumentException("Bad revision supplied.");
         }
 
