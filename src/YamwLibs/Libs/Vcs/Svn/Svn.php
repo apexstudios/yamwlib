@@ -12,12 +12,16 @@ use YamwLibs\Libs\Vcs\General;
  */
 class Svn extends General\AbstractVcs
 {
-    public function cat($file)
+    public function cat($file, $rev = null)
     {
         $command = new Commands\SvnCatCommand(
             $this->getCwd(),
             $this->getUrl() . $file
         );
+
+        if ($rev) {
+            $command->rev($rev);
+        }
 
         return $command;
     }
@@ -38,15 +42,15 @@ class Svn extends General\AbstractVcs
 
     public function update($rev = null)
     {
-        $command = "svn up";
-        $command .= " --non-interactive";
-        if ($rev !== null && is_int($rev)) {
-            $command .= " -r $rev";
+        $command = new Commands\SvnUpdateCommand(
+            $this->getCwd()
+        );
+
+        if ($rev) {
+            $command->rev($rev);
         }
 
-        $this->exec($command, $output, $return);
-        echo implode("\n", $output);
-        return $return;
+        return $command;
     }
 
     public function export($rev = null)
@@ -65,18 +69,19 @@ class Svn extends General\AbstractVcs
 
     public function listFiles($rev = null, $rec = false)
     {
-        $command = "svn list";
-        $command .= " --non-interactive";
-        $command .= ' "' . $this->getUrl() . '"';
-        if ($rev !== null && is_int($rev)) {
-            $command .= " -r $rev";
-        }
-        if ($rec) {
-            $command .= " -R";
+
+        $command = new Commands\SvnListCommand(
+            $this->getCwd()
+        );
+
+        if ($rev) {
+            $command->rev($rev);
         }
 
-        $this->exec($command, $output, $return);
-        echo implode("\n", $output);
-        return $return;
+        if ($rec) {
+            $command->recursive();
+        }
+
+        return $command;
     }
 }
