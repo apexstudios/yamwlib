@@ -22,36 +22,27 @@ class SvnParser
      */
     public static function parseChangelistOutput(array $output)
     {
-        $files_conflicting = preg_grep("/^[C]/", $output);
-        $files_updated = preg_grep("/^[U]/", $output);
-        $files_added = preg_grep("/^[A]/", $output);
-        $files_deleted = preg_grep("/^[D]/", $output);
-        $files_merged = preg_grep("/^[G]/", $output);
+        $files_conflicting = preg_grep("/^[C]\s/", $output);
+        $files_updated = preg_grep("/^[U]\s/", $output);
+        $files_added = preg_grep("/^[A]\s/", $output);
+        $files_deleted = preg_grep("/^[D]\s/", $output);
+        $files_merged = preg_grep("/^[G]\s/", $output);
 
-        return array(
+        $result = array(
             'added' => $files_added,
             'conflicting' => $files_conflicting,
             'deleted' => $files_deleted,
             'merged' => $files_merged,
             'updated' => $files_updated,
         );
-    }
 
-    /**
-     * Fishes out the notable files from a `changed list`
-     *
-     * @param array $output
-     * An array containing the inidivual lines
-     *
-     * @return array
-     * Returns an array with files that had been changed (updated, merged, added)
-     */
-    public static function parseChangedFilesBetweenTwoRevisions(array $output)
-    {
-        // Stub
-        $changedFiles = array();
+        foreach ($result as &$array) {
+            foreach ($array as $key => $value) {
+                $array[$key] = trim(substr($value, 1));
+            }
+        }
 
-        return $changedFiles;
+        return $result;
     }
 
     /**
@@ -65,11 +56,21 @@ class SvnParser
      * A two-element array, with the first element containing the left-side of
      * a file in a diff, and the second element containing the right-side.
      */
-    public static function parseDiffForSingleFile($diff)
+    public static function parseDiffForSingleFile(array $diff)
     {
-        // Stub
         $leftSide = array();
         $rightSide = array();
+
+        foreach ($diff as $line) {
+            if (preg_match("/^\+/", $line)) {
+                $leftSide[] = $line;
+            } elseif (preg_match("/^-/", $line)) {
+                $rightSide[] = $line;
+            } else {
+                $leftSide[] = $line;
+                $rightSide[] = $line;
+            }
+        }
 
         return array($leftSide, $rightSide);
     }
