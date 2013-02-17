@@ -55,10 +55,6 @@ class MethodInvocationMarkup extends AbstractTemplateMarkup
         // Check whether $method is valid
 
         // We only accept arrays with two elements - no left-outs
-        if (count($method) != 2) {
-            self::invalidMethod();
-        }
-
         if (count($method) === 2) {
             if (is_array($method[0])) {
                 if (
@@ -76,6 +72,8 @@ class MethodInvocationMarkup extends AbstractTemplateMarkup
             if (!is_array($method[1])) {
                 self::invalidMethod();
             }
+        } else {
+            self::invalidMethod();
         }
 
         $this->method = $method;

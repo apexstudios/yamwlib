@@ -48,7 +48,7 @@ class MarkupManager implements \IteratorAggregate
      * @param string $name
      * The name of the registered markup
      *
-     * @return \YamwLibs\Infrastructure\Templater\Markup\AbstractTemplateMarkup | null
+     * @return YamwLibs\Infrastructure\Templater\Markup\AbstractTemplateMarkup | null
      * Returns the markup instance if found, else returns null
      */
     public function getMarkup($name)
