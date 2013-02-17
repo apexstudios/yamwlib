@@ -8,7 +8,7 @@ class TemplaterTest extends \PHPUnit_Framework_TestCase
 {
     public function testSimpleTemplateGeneration()
     {
-        $markupMgr = MarkupManager::getInstance();
+        $markupMgr = new MarkupManager;
         $filePath = __DIR__ . "/mocks/basic_template";
         $cmpPath = __DIR__ . "/mocks/generated_template";
         $date = date(DATE_RFC2822, time());
@@ -31,6 +31,7 @@ class TemplaterTest extends \PHPUnit_Framework_TestCase
         $markupMgr->registerMarkup($markupName)->registerMarkup($markupTime);
 
         Templater::loadCache(file_get_contents($filePath));
+        Templater::setMarkupMgr($markupMgr);
         Templater::generateTemplate();
 
         $generatedTemplate = Templater::retrieveTemplate();

@@ -10,6 +10,10 @@ namespace YamwLibs\Infrastructure\Templater;
  */
 class Templater
 {
+    /**
+     * @var MarkupManager
+     */
+    private static $markupMgr;
     private static $template_name;
     private static $template_code;
     private static $proc_crit;
@@ -80,7 +84,7 @@ class Templater
             return false;
         }
 
-        $markupMgr = MarkupManager::getInstance();
+        $markupMgr = self::$markupMgr;
 
         foreach ($markupMgr as $markup) {
             $pattern = '{'.$markup->getPattern().'}';
@@ -103,5 +107,10 @@ class Templater
     public static function retrieveTemplate()
     {
         return self::$template_code;
+    }
+
+    public static function setMarkupMgr(MarkupManager $mgr)
+    {
+        self::$markupMgr = $mgr;
     }
 }
