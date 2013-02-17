@@ -1,6 +1,8 @@
 <?php
 namespace YamwLibs\Infrastructure\Templater;
 
+use YamwLibs\Infrastructure\Config\Config;
+
 /**
  * Processes and generates templates
  *
