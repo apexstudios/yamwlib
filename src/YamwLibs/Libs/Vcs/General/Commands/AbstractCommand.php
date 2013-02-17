@@ -27,7 +27,7 @@ abstract class AbstractCommand
         if (file_exists($this->cwd)) {
             chdir($this->cwd);
         }
-        
+
         $output = array();
         exec($this->getCommand(), $output, $ret_val);
         return $output;
@@ -36,6 +36,13 @@ abstract class AbstractCommand
     public function getCwd()
     {
         return $this->cwd;
+    }
+
+    public function setCwd($cwd)
+    {
+        $this->cwd = $cwd;
+
+        return $this;
     }
 
     protected function addOption($option, $name)

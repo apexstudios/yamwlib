@@ -69,7 +69,6 @@ class Svn extends General\AbstractVcs
 
     public function listFiles($rev = null, $rec = false)
     {
-
         $command = new Commands\SvnListCommand(
             $this->getCwd()
         );
