@@ -86,15 +86,17 @@ class MethodInvocationMarkup extends AbstractTemplateMarkup
 
     public function getContent()
     {
+        /*
+         * To understand recursiveness,
+         * you first have to understand recursiveness
+         *
+         * Resolves to
+         *     call_user_func_array(
+         *         $this->method[0],
+         *         $this->method[1]
+         *     );
+         */
         return call_user_func_array('call_user_func_array', $this->method);
-
-        $callback = $this->method[0];
-        $params = $this->method[1];
-
-        return call_user_func_array(
-            $callback,
-            $params
-        );
     }
 
     public function getName()
