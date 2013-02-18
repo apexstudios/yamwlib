@@ -16,19 +16,26 @@ class Templater
      * @var MarkupManager
      */
     private static $markupMgr;
+    private static $templatePathPrefix = "Templates/";
     private static $template_name;
     private static $template_code;
     private static $proc_crit;
     private static $proc_uncrit;
 
+    public static function setTemplatePrefix($prefix)
+    {
+        self::$templatePathPrefix = $prefix;
+    }
+
     public static function loadTemplate($template)
     {
-        if (!file_exists($template) || !is_readable($template)) {
+        $path = self::$templatePathPrefix . $template . "/layout.php";
+        if (!file_exists($path) || !is_readable($path)) {
             return false;
         }
 
         self::$template_name = $template;
-        self::$template_code = file_get_contents($template);
+        self::$template_code = file_get_contents($path);
 
         return true;
     }
