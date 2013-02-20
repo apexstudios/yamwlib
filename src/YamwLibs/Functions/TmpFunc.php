@@ -1,5 +1,5 @@
 <?php
-namespace YamwLibs\Libs\Functions;
+namespace YamwLibs\Functions;
 
 /**
  * Provides functions for temporary stuff
