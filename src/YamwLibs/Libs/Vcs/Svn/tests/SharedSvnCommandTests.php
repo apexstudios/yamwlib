@@ -12,25 +12,12 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         // Construct the cwd - a random path in /tmp
-        self::$cwd = self::tempdir(sys_get_temp_dir(), 'svnTmp');
+        self::$cwd = \YamwLibs\Libs\Functions\TmpFunc::tempdir(sys_get_temp_dir(), 'svnTmp');
 
         // Build the URL for the testrepo
         $repo_dir = "file:///" . __DIR__ . DIRECTORY_SEPARATOR . "mocks" .
             DIRECTORY_SEPARATOR . "testrepo";
         self::$url = str_replace("\\", "/", $repo_dir);
-    }
-
-    private static function tempdir($dir, $prefix = '', $mode = 0700)
-    {
-        if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
-            $dir .= DIRECTORY_SEPARATOR;
-        }
-
-        do {
-            $path = $dir . $prefix . mt_rand(0, 9999999);
-        } while (!mkdir($path, $mode));
-
-        return $path;
     }
 
     public static function getCwd()
