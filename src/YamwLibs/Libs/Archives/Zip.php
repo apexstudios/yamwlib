@@ -50,10 +50,10 @@ class Zip
             //debug
             //echo 'The zip archive contains ',$zip->numFiles,' files with a status of ',$zip->status;
             //close the zip -- done!
-            $zip->close();
+            $zipClose = $zip->close();
 
             //check to make sure the file exists
-            return file_exists($destination);
+            return array(file_exists($destination), $zipClose);
         } else {
             return false;
         }
@@ -74,8 +74,8 @@ class Zip
             return false;
         }
         // we check if $folder has a slash at its end, if not, we append one
-        $folder .= end(str_split($folder)) == "/" ? "" : "/";
-        $subfolder .= end(str_split($subfolder)) == "/" ? "" : "/";
+        $folder .= (end(str_split($folder)) == "/") ? "" : "/";
+        $subfolder .= (end(str_split($subfolder)) == "/") ? "" : "/";
         // we start by going through all files in $folder
         $handle = opendir($folder);
         while ($f = readdir($handle)) {
