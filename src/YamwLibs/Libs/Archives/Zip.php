@@ -4,6 +4,8 @@ namespace YamwLibs\Libs\Archives;
 /**
  * Creates zips for you
  *
+ * Taken from the internet. Likely to be php.net, but doubtable.
+ *
  * @author AnhNhan <anhnhan@outlook.com>
  * @package YamwLibs
  * @subpackage Archives

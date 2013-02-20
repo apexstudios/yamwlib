@@ -10,6 +10,11 @@ namespace YamwLibs\Functions;
  */
 class FileFunc
 {
+    /**
+     * Taken from php.net, rmdir()
+     * @param type $dir
+     * @return type
+     */
     public static function delTree($dir)
     {
         $files = array_diff(scandir($dir), array('.', '..'));

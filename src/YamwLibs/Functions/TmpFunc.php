@@ -10,6 +10,13 @@ namespace YamwLibs\Functions;
  */
 class TmpFunc
 {
+    /**
+     * Taken from php.net, sys_get_tmp_dir()?
+     * @param string $dir
+     * @param type $prefix
+     * @param type $mode
+     * @return string
+     */
     public static function tempdir($dir, $prefix = '', $mode = 0700)
     {
         if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
