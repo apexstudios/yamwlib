@@ -89,6 +89,10 @@ class SvnParser
         $info = array();
 
         foreach ($output as $line) {
+            if (!$line) {
+                continue;
+            }
+
             $split = explode(":", $line);
             $key = trim($split[0]);
             $value = trim($split[1]);
