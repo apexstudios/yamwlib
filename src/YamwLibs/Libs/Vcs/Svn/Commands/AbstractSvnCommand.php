@@ -26,13 +26,44 @@ abstract class AbstractSvnCommand extends Commands\AbstractCommand
 
     public function rev($revision)
     {
-        if (!(is_int($revision) || $revision == "HEAD")) {
+        if (!self::validateRevision($revision)) {
             throw new \InvalidArgumentException("Bad revision supplied.");
         }
 
         $this->addOption("--revision $revision", "rev");
 
         return $this;
+    }
+
+    public static function validateRevision($rev)
+    {
+        if (!is_scalar($rev)) {
+            return false;
+        }
+
+        if (!strlen($rev)) {
+            return false;
+        }
+
+        if (is_int($rev) || ctype_digit($rev)) {
+            return true;
+        } else {
+            if (!strpos($rev, ':')) {
+                return false;
+            }
+
+            $rev_parts = explode(':', $rev);
+            if (count($rev_parts) != 2) {
+                return false;
+            }
+
+            if (ctype_digit($rev_parts[0]) && ctype_digit($rev_parts[1]) &&
+                strlen($rev_parts[0]) && strlen($rev_parts[1])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public function recursive()
