@@ -9,4 +9,3 @@ src/mongodbadmin.php
 nbproject
 *.php~
 #*.php#
-composer.lock
