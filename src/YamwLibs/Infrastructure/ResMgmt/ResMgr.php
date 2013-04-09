@@ -38,7 +38,7 @@ class ResMgr
         'pck' => [],
     ];
 
-    private static function init($path = '__resource_map__.php')
+    public static function init($path = '__resource_map__.php')
     {
         if (!self::$resourceMap) {
             FA::assertFileExists($path);
