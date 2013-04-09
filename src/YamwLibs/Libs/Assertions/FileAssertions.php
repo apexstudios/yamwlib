@@ -8,116 +8,116 @@ namespace YamwLibs\Libs\Assertions;
  */
 class FileAssertions extends BasicAssertions
 {
-    public static function assertFileExists($path, $msg)
+    public static function assertFileExists($path, $msg = null)
     {
-        if (file_exists(path($path)) && is_file(path($path))) {
+        if (file_exists($path) && is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " does not exist",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileNotFoundException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileNotFoundException"
             );
         }
     }
 
-    public static function assertFileNotExists($path, $msg)
+    public static function assertFileNotExists($path, $msg = null)
     {
-        if (!file_exists(path($path)) && is_file(path($path))) {
+        if (!file_exists($path) && is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " does exist",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileFoundException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileFoundException"
             );
         }
     }
 
-    public static function assertFileWritable($path, $msg)
+    public static function assertFileWritable($path, $msg = null)
     {
-        if (is_writable(path($path)) && is_file(path($path))) {
+        if (is_writable($path) && is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " is not writeable",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileNotWriteableException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileNotWriteableException"
             );
         }
     }
 
-    public static function assertFileReadable($path, $msg)
+    public static function assertFileReadable($path, $msg = null)
     {
-        if (is_readable(path($path)) && is_file(path($path))) {
+        if (is_readable($path) && is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " is not readable",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileNotReadableException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileNotReadableException"
             );
         }
     }
 
-    public static function assertFileExecutable($path, $msg)
+    public static function assertFileExecutable($path, $msg = null)
     {
-        if (is_executable(path($path)) && is_file(path($path))) {
+        if (is_executable($path) && is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " is not executable",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileNotExecutableException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileNotExecutableException"
             );
         }
     }
 
-    public static function assertFileHasExtension($path, $msg)
+    public static function assertFileHasExtension($path, $msg = null)
     {
-        if (count(explode('.', basename(path($path)))) >= 1 && is_file(path($path))) {
+        if (count(explode('.', basename($path))) >= 1 && is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " does not have an extension",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileWrongExtensionException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileWrongExtensionException"
             );
         }
     }
 
     public static function assertFileHasSpecifiedExtension($path, $extension)
     {
-        $filename = explode('.', basename(path($path)));
+        $filename = explode('.', basename($path));
 
-        if (strcasecmp($filename[count($filename) - 1], $extension) === 0 && is_file(path($path))) {
+        if (strcasecmp($filename[count($filename) - 1], $extension) === 0 && is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " does not have the extension $extension",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileWrongExtensionException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileWrongExtensionException"
             );
         }
     }
 
-    public static function assertIsFile($path, $msg)
+    public static function assertIsFile($path, $msg = null)
     {
-        if (is_file(path($path))) {
+        if (is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " is not a file",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileNotIsFileException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileNotIsFileException"
             );
         }
     }
@@ -126,91 +126,91 @@ class FileAssertions extends BasicAssertions
      * Checks whether the given file is an uploaded file.
      *
      * @param type $path
-     * This is *NOT* sent through path()
+     * This is *NOT* sent through
      *
      * @param type $msg
      * @return boolean
      */
-    public static function assertIsUploadedFile($path, $msg)
+    public static function assertIsUploadedFile($path, $msg = null)
     {
-        if (is_uploaded_file($path) && is_file(path($path))) {
+        if (is_uploaded_file($path) && is_file($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " is not an uploaded file",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileNotIsUploadedFileException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileNotIsUploadedFileException"
             );
         }
     }
 
-    public static function assertIsSymlink($path, $msg)
+    public static function assertIsSymlink($path, $msg = null)
     {
-        if (is_link(path($path))) {
+        if (is_link($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " is not a symlink",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FileNotIsSymlinkException"
+                "YamwLibs\Libs\Assertions\Exceptions\FileNotIsSymlinkException"
             );
         }
     }
 
-    public static function assertIsDirectory($path, $msg)
+    public static function assertIsDirectory($path, $msg = null)
     {
-        if (is_dir(path($path))) {
+        if (is_dir($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " is not a dir",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\DirNotIsDirException"
+                "YamwLibs\Libs\Assertions\Exceptions\DirNotIsDirException"
             );
         }
     }
 
-    public static function assertDirectoryExists($path, $msg)
+    public static function assertDirectoryExists($path, $msg = null)
     {
-        if (file_exists(path($path)) && is_dir(oath($path))) {
+        if (file_exists($path) && is_dir(oath($path))) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " does not exist",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\DirNotFoundException"
+                "YamwLibs\Libs\Assertions\Exceptions\DirNotFoundException"
             );
         }
     }
 
-    public static function assertNotExists($path, $msg)
+    public static function assertNotExists($path, $msg = null)
     {
-        if (!file_exists(path($path))) {
+        if (!file_exists($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " does exist",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\FoundException"
+                "YamwLibs\Libs\Assertions\Exceptions\FoundException"
             );
         }
     }
 
-    public static function assertDirectoryWritable($path, $msg)
+    public static function assertDirectoryWritable($path, $msg = null)
     {
-        if (is_writeable(path($path)) && is_dir(path($path))) {
+        if (is_writeable($path) && is_dir($path)) {
             return true;
         } else {
             static::throwException(
                 $msg,
                 $path . " is not writeable",
                 null,
-                "Yamw\Lib\Assertions\Exceptions\DirNotWriteableException"
+                "YamwLibs\Libs\Assertions\Exceptions\DirNotWriteableException"
             );
         }
     }

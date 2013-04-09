@@ -9,7 +9,7 @@ class FileAssertionsTest extends \PHPUnit_Framework_TestCase
     public function testWorksOnExistingFiles()
     {
         // Stub
-        $file = "Yamw/Lib/Assertions/tests/mocks/existing_file";
+        $file = __DIR__ . "/mocks/existing_file";
         $this->assertTrue(FileAssertions::assertFileExists($file));
     }
 
@@ -19,7 +19,7 @@ class FileAssertionsTest extends \PHPUnit_Framework_TestCase
     public function testTyposInPathHaveHorrendousEffects()
     {
         // Stub
-        $file = "Yamw/Lib/Assertions/tests/mocks/ekusiszingu_fairu";
+        $file = __DIR__ . "/mocks/ekusiszingu_fairu";
         FileAssertions::assertFileExists($file);
     }
 }
