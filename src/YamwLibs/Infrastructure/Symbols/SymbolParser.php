@@ -59,6 +59,8 @@ class SymbolParser
                     $this->parseNodes($statement->stmts, $nmsps, $uses);
                     break;
                 case "PHPParser_Node_Stmt_Class":
+                case "PHPParser_Node_Stmt_Interface":
+                case "PHPParser_Node_Stmt_Trait":
                     $symbol = $this->parseClassNode($statement, $nmsps, $uses);
                     break;
                 case "PHPParser_Node_Stmt_Function":
@@ -72,7 +74,7 @@ class SymbolParser
         }
     }
 
-    public function parseClassNode(PP_Cls $node, $nmsps, array $uses)
+    public function parseClassNode($node, $nmsps, array $uses)
     {
         $className = $nmsps . "\\" . $node->name;
 
@@ -81,16 +83,18 @@ class SymbolParser
             return false;
         }
 
-        $derivation = strlen($node->extends) ?
+        $derivation = $node->extends ?
             $this->resolveSymbolName($node->extends, $nmsps, $uses) : "";
         $implementations = array();
-        foreach ($node->implements as $impl) {
-            $implementations[] = $this->resolveSymbolName(
-                $impl,
-                $nmsps,
-                $uses,
-                true
-            );
+        if (isset($node->implements)) {
+            foreach ($node->implements as $impl) {
+                $implementations[] = $this->resolveSymbolName(
+                    $impl,
+                    $nmsps,
+                    $uses,
+                    true
+                );
+            }
         }
 
         $symbolNode = new Nodes\ClassNode(
