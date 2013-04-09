@@ -50,7 +50,7 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
             0,
             $ret_val,
             "Could not check out repository - return code $ret_val\n\n" .
-                "Message:\n" . $output
+                "Message:\n" . implode("", $output)
         );
     }
 
