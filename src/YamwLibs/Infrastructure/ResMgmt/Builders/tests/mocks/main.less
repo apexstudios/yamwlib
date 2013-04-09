@@ -1,0 +1,28 @@
+// Some comment
+
+/* Some other comment */
+
+html {
+    color: #fff;
+}
+
+.mixin () {
+    margin: 0;
+    padding: 0;
+}
+
+.function (@color) {
+    color: @color;
+}
+
+.class {
+    .mixin;
+    background: #000;
+    .function(#123);
+
+    .sub-class {
+        font-size: 1.1em;
+    }
+}
+
+@import "include.less";
