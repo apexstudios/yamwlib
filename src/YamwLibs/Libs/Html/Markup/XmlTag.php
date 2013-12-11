@@ -5,7 +5,7 @@ namespace YamwLibs\Libs\Html\Markup;
  * Object for XmlTags, used by the BuilderFramework
  *
  * @author AnhNhan
- * @package YamwLibs\Libs\Html
+ * @package YamwLibs
  */
 class XmlTag extends AbstractMarkup
 {
@@ -33,11 +33,13 @@ class XmlTag extends AbstractMarkup
                 if(is_numeric($k)) {
                     $this->options[$v] = '';
                 } else {
+                    $k = htmlspecialchars($k);
                     $this->options[$k] = $v;
                 }
             }
         } else {
-                $this->options[$attr] = $val;
+            $attr = htmlspecialchars($attr);
+            $this->options[$attr] = new TextNode($val);
         }
 
         return $this;
@@ -45,11 +47,7 @@ class XmlTag extends AbstractMarkup
 
     public function getOption($name)
     {
-        if (isset($this->options[$name])) {
-            return $this->options[$name];
-        } else {
-            return null;
-        }
+        return isset($this->options[$name]) ? $this->options[$name] : null;
     }
 
     public function getOptions()
@@ -59,44 +57,36 @@ class XmlTag extends AbstractMarkup
 
     public function isSelfClosing()
     {
-        return $this->getContent() === null;
+        return count($this->getContent()) === 0;
     }
 
     public function __toString()
     {
-        $name = $this->getName();
-        $content = $this->getContent();
+        $name = $this->getTagName();
+        $contents = $this->getContent();
 
+        $indentation = "";
+        $pretty = $this->isPretty();
+        $contents->makePretty($pretty);
+        if ($pretty) {
+            $indentation = str_repeat("    ", $pretty);
+        }
+
+        $generated_options = "";
         if ($this->options) {
-            $generated_options = '';
-
             foreach ($this->options as $attr => $val) {
                 $generated_options .= " $attr";
                 if ($val) {
                     $generated_options .= "=\"$val\"";
                 }
             }
-        } else {
-            $generated_options = '';
         }
 
-        if ($content === null) {
-            $end = " /";
-        } else {
-            $end = ">";
-            $end .= $content;
-            $end .= "</{$name}";
+        $end = " /";
+        if (count($contents)) {
+            $end = ">".trim((string)$contents)."</{$name}";
         }
 
-        if ($this->isPretty()) {
-            $indentation = str_repeat("    ", $this->isPretty());
-            if (is_object($content)) {
-                $content->makeDirty();
-            }
-        } else {
-            $indentation = "";
-        }
-
-        return "{$indentation}<{$name}{$generated_options}{$end}>\n";
+        return "{$indentation}<{$name}{$generated_options}{$end}>";
     }
 }

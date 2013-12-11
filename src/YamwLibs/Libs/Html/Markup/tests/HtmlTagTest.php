@@ -2,9 +2,7 @@
 namespace YamwLibs\Libs\Html\Markup;
 
 /**
- * Description of HtmlTagTest
- *
- * @author AnhNhan
+ * @author Anh Nhan Nguyen <anhnhan@outlook.com>
  */
 class HtmlTagTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,7 +17,7 @@ class HtmlTagTest extends \PHPUnit_Framework_TestCase
             $tag->addClass($value);
         }
 
-        $string = " ".implode(" ", $classes)." ";
+        $string = implode(" ", $classes);
         self::assertEquals($string, $tag->getClasses());
         self::assertRegExp('/<somename class="'.$string.'" \/>/i', $tag->__toString());
     }

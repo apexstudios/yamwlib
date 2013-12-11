@@ -2,9 +2,11 @@
 namespace YamwLibs\Libs\Html\Markup;
 
 /**
+ * An extension to XmlTag, adding some common usages for HTML tags, like classes
+ * and ids
  *
- * @author AnhNhan
- * @package YamwLibs\Libs\Html
+ * @author Anh Nhan Nguyen <anhnhan@outlook.com>
+ * @package YamwLibs
  * @see XmlTag
  */
 class HtmlTag extends XmlTag
@@ -19,16 +21,15 @@ class HtmlTag extends XmlTag
             $class = array($class);
         }
 
-        $string = $this->getOption('class');
-        $current_classes = $string ? substr($string, 0, strlen($string) - 1) : null;
+        $string = " ".$this->getOption('class')." ";
 
         foreach ($class as $name) {
-            if (!strpos($current_classes, $name." ")) {
-                $current_classes .= " $name";
+            if (!strpos($string, $name." ")) {
+                $string = trim($string)." $name";
             }
         }
 
-        $this->addOption('class', $current_classes. " ");
+        $this->addOption('class', trim($string));
 
         return $this;
     }
@@ -37,7 +38,8 @@ class HtmlTag extends XmlTag
     {
         $name = $name . " ";
         $string = $this->getOption('class');
-        $current_classes = $string ? substr($string, 0, strlen($string) - 1) : null;
+        $current_classes = $string ?
+            substr($string, 0, strlen($string) - 1) : null;
 
         if (strpos($current_classes, $name)) {
             $current_classes = preg_replace("/$name/i", "", $current_classes);
@@ -48,9 +50,16 @@ class HtmlTag extends XmlTag
 
     public function getClasses()
     {
-        return $this->getOption('class');
+        return (string)$this->getOption('class');
     }
 
+    /**
+     * I'd rather have it if you were to use classes...
+     *
+     * @param string $name
+     *
+     * @return $this
+     */
     public function setId($name)
     {
         return $this->addOption('id', $name);
@@ -58,6 +67,6 @@ class HtmlTag extends XmlTag
 
     public function getId()
     {
-        return $this->getOption('id');
+        return (string)$this->getOption('id');
     }
 }

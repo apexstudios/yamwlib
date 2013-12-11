@@ -1,18 +1,11 @@
 <?php
-/**
- * The Builder interface
- *
- * @author AnhNhan
- * @package YamwLibs\Libs\Html
- */
-
 namespace YamwLibs\Libs\Html\Interfaces;
 
 /**
- * Builderinterface
+ * The Builder interface
  *
- * @author AnhNhan
- *
+ * @author Anh Nhan Nguyen <anhnhan@outlook.com>
+ * @package YamwLibs
  */
 interface BuilderInterface
 {
@@ -20,9 +13,9 @@ interface BuilderInterface
      * Tells the builder to build its mark-up
      */
     public function build();
-    
+
     public function isBuilt();
-    
+
     /**
      * Returns the built mark-up
      *

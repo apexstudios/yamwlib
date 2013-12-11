@@ -4,19 +4,19 @@ namespace YamwLibs\Libs\Html;
 /**
  * Description of HtmlFactoryTest
  *
- * @author AnhNhan
+ * @author Anh Nhan Nguyen <anhnhan@outlook.com>
  */
 class HtmlFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanCreateDivAndSpan()
     {
         self::assertRegExp(
-            '/<div id="name" class=" hw "><\/div>/i',
+            '/<div id="name" class="hw">(\s+)?<\/div>/i',
             HtmlFactory::divTag()->setId('name')->addClass('hw')->__toString()
         );
 
         self::assertRegExp(
-            '/<span id="name" class=" hw "><\/span>/i',
+            '/<span id="name" class="hw">(\s+)?<\/span>/i',
             HtmlFactory::spanTag()->setId('name')->addClass('hw')->__toString()
         );
     }
