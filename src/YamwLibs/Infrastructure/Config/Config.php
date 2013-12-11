@@ -12,20 +12,20 @@ namespace YamwLibs\Infrastructure\Config;
  */
 class Config
 {
-    private static $config_path = 'config/config.php';
-    private static $config_file;
-    private static $initialized = false;
+    private $config_path = 'config/config.php';
+    private $config_file;
+    private $initialized = false;
 
     /**
      * Loads the config
-     * @return \Yamw\Lib\Config
+     * @return $this
      */
-    public static function init()
+    public function init()
     {
-        self::$config_file = include self::$config_path;
-        self::$initialized = true;
+        $this->config_file = include $this->config_path;
+        $this->initialized = true;
 
-        return new static;
+        return $this;
     }
 
     /**
@@ -34,19 +34,19 @@ class Config
      * @param type $newPath
      * The new location of the config file
      */
-    public static function setConfigPath($newPath)
+    public function setConfigPath($newPath)
     {
-        self::$config_path = $newPath;
+        $this->config_path = $newPath;
     }
 
     /**
      * Flushes the config cache, initiating a reload of the config file at the
      * next interaction with Config
      */
-    public static function flushCache()
+    public function flushCache()
     {
-        self::$config_file = null;
-        self::$initialized = false;
+        $this->config_file = null;
+        $this->initialized = false;
     }
 
     /**
@@ -54,17 +54,17 @@ class Config
      *
      * @param string $name
      */
-    public static function get($name)
+    public function get($name)
     {
-        if (!self::$initialized) {
-            self::init();
+        if (!$this->initialized) {
+            $this->init();
         }
 
-        if (!isset(self::$config_file[$name])) {
+        if (!isset($this->config_file[$name])) {
             return null;
         }
 
-        return self::$config_file[$name];
+        return $this->config_file[$name];
     }
 
     /**
@@ -73,19 +73,21 @@ class Config
      *
      * @param string $name
      * @param string $content
+     *
+     * @return $this
      */
-    public static function set($name, $content)
+    public function set($name, $content)
     {
-        if (!self::$initialized) {
-            self::init();
+        if (!$this->initialized) {
+            $this->init();
         }
 
-        if (isset(self::$config_file[$name])) {
-            self::$config_file[$name] = $content;
+        if (isset($this->config_file[$name])) {
+            $this->config_file[$name] = $content;
         } else {
             throw new \InvalidArgumentException("Config value $name does not exit!");
         }
 
-        return new static();
+        return $this;
     }
 }
