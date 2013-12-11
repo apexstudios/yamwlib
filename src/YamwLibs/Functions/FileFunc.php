@@ -31,7 +31,7 @@ class FileFunc
      * @return array All files matching with the specified extension (or any)
      * in a directory and its subdirectories
      */
-    function recursiveScanForDirectories($dirName, $extension = '.*')
+    public static function recursiveScanForDirectories($dirName, $extension = '.*')
     {
         $dirList = scandir($dirName);
         $files = array();
@@ -63,7 +63,7 @@ class FileFunc
      * @param type $prefix
      * @return type
      */
-    function sanitizeStringsFromPrefix(array $paths, $prefix)
+    public static function sanitizeStringsFromPrefix(array $paths, $prefix)
     {
         $files = array();
 
