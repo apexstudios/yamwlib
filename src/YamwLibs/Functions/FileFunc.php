@@ -57,4 +57,31 @@ class FileFunc
         return $files;
     }
 
+    /**
+     * 
+     * @param array $paths
+     * @param type $prefix
+     * @return type
+     */
+    function sanitizeStringsFromPrefix(array $paths, $prefix)
+    {
+        $files = array();
+
+        // Sanitize file names to be relative instead of absolute
+        foreach ($paths as $file) {
+            $newFileName = str_replace(
+                "\\",
+                "/",
+                ltrim(
+                    preg_replace('/^'.preg_quote($prefix, '/').'/', "", $file),
+                    " \\/"
+                )
+            );
+
+            $files[] = $newFileName;
+        }
+
+        return $files;
+    }
+
 }
