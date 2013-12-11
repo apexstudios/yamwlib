@@ -16,7 +16,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             'dzde' => 'default',
             'heyho' => 'it exists'
         );
-        $request->init($data);
+        $request->populate($data);
 
         // Now the data exists
         self::assertSame('it exists', $request->getValue('heyho'));
@@ -27,7 +27,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             'dzde' => 'wut?',
             'heyho' => 'yup, it\'s true'
         );
-        $request->init($data);
+        $request->populate($data);
 
         // Now some other data exists
         self::assertSame('yup, it\'s true', $request->getValue('heyho'));
@@ -41,7 +41,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $data = array(
             'section' => 'wut?',
         );
-        $request->init($data);
+        $request->populate($data);
 
         self::assertSame('wut?', $request->getValue('section'));
 
