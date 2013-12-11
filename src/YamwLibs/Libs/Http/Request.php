@@ -9,8 +9,8 @@ use \YamwLibs\Infrastructure\Config\Config;
  * module.
  *
  * @author AnhNhan <anhnhan@outlook.com>
- * @package Yamw
- * @subpackage Lib
+ * @package YamwLibs
+ * @subpackage Http
  */
 class Request
 {
@@ -21,7 +21,6 @@ class Request
      * loads the default values for request information that has not been passed
      * over
      *
-     * @since 3.0
      * @param array $params
      */
     public function init(array $params = array())
@@ -60,7 +59,6 @@ class Request
      * existing entries.
      *
      * @param array $data
-     * @since 5.0
      */
     public function populate(array $data)
     {
@@ -112,8 +110,6 @@ class Request
 
     /**
      * Populates the Request object with data from the post superglobal
-     *
-     * @since 5.0
      */
     public function populateFromPost(array $populate_objects = null)
     {
@@ -122,8 +118,6 @@ class Request
 
     /**
      * Populates the Request object with data from the get superglobal
-     *
-     * @since 5.0
      */
     public function populateFromGet(array $populate_objects = null)
     {
@@ -132,8 +126,6 @@ class Request
 
     /**
      * Populates the Request object with data from the get superglobal
-     *
-     * @since 5.0
      */
     public function populateFromServer(array $populate_objects = null)
     {
@@ -147,10 +139,7 @@ class Request
 
     /**
      * Returns the value associated with the $name key
-     *
-     * @since 5.0
      * @param string $name
-     * @throws \InvalidArgumentException
      *
      * @return multiptype: string|bool|number
      */
