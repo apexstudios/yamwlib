@@ -27,44 +27,6 @@ class Request
     }
 
     /**
-     * Populates the Request with the $params passed to it and, if applicable,
-     * loads the default values for request information that has not been passed
-     * over
-     *
-     * @param array $params
-     */
-    public function init(array $params = array())
-    {
-        if (!$params) {
-            $params = array(
-                'module' => $this->config->get('default.module'),
-                'action' => $this->config->get('default.action'),
-                'section' => $this->config->get('default.section')
-            );
-        }
-
-        if (!isset($params['section']) || !$params['section']) {
-            $params['section'] = $this->config->get('default.section');
-        }
-
-        if (!isset($params['module']) || !$params['module']) {
-            $params['module'] = $this->config->get('default.module');
-        }
-
-        if (!isset($params['action']) || !$params['action']) {
-            $params['action'] = $this->config->get('default.action');
-        }
-
-        if (isset($_COOKIE['mybb_sid'])) {
-            $params['cookie-sid'] = $_COOKIE['mybb_sid'];
-        } else {
-            $params['cookie-sid'] = false;
-        }
-
-        $this->populate($params);
-    }
-
-    /**
      * Assigns the passed data to the local key-value store, overwriting any
      * existing entries.
      *
