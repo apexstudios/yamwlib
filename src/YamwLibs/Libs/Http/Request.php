@@ -14,7 +14,17 @@ use \YamwLibs\Infrastructure\Config\Config;
  */
 class Request
 {
+    /**
+     * @var Config
+     */
+    private $config = array();
     private $params = array();
+    private $globals = array();
+
+    public function setConfig(Config $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * Populates the Request with the $params passed to it and, if applicable,
@@ -27,22 +37,22 @@ class Request
     {
         if (!$params) {
             $params = array(
-                'module' => Config::get('default.module'),
-                'action' => Config::get('default.action'),
-                'section' => Config::get('default.section')
+                'module' => $this->config->get('default.module'),
+                'action' => $this->config->get('default.action'),
+                'section' => $this->config->get('default.section')
             );
         }
 
         if (!isset($params['section']) || !$params['section']) {
-            $params['section'] = Config::get('default.section');
+            $params['section'] = $this->config->get('default.section');
         }
 
         if (!isset($params['module']) || !$params['module']) {
-            $params['module'] = Config::get('default.module');
+            $params['module'] = $this->config->get('default.module');
         }
 
         if (!isset($params['action']) || !$params['action']) {
-            $params['action'] = Config::get('default.action');
+            $params['action'] = $this->config->get('default.action');
         }
 
         if (isset($_COOKIE['mybb_sid'])) {
@@ -85,6 +95,12 @@ class Request
         $this->populate($data);
     }
 
+    public function injectGlobal($name, $global)
+    {
+        $this->globals[$name] = $global;
+        return $this;
+    }
+
     private function populateSuperGlobal(
         array $global,
         $prefix = 'get',
@@ -113,7 +129,7 @@ class Request
      */
     public function populateFromPost(array $populate_objects = null)
     {
-        $this->populateSuperGlobal($_POST, 'post', $populate_objects);
+        $this->populateSuperGlobal(idx($this->globals, 'post', $_POST), 'post', $populate_objects);
     }
 
     /**
@@ -121,7 +137,7 @@ class Request
      */
     public function populateFromGet(array $populate_objects = null)
     {
-        $this->populateSuperGlobal($_GET, 'get', $populate_objects);
+        $this->populateSuperGlobal(idx($this->globals, 'get', $_GET), 'get', $populate_objects);
     }
 
     /**
@@ -129,12 +145,47 @@ class Request
      */
     public function populateFromServer(array $populate_objects = null)
     {
-        $this->populateSuperGlobal($_SERVER, 'server', $populate_objects);
+        $this->populateSuperGlobal(idx($this->globals, 'server', $_SERVER), 'server', $populate_objects);
     }
 
     public function populateFromCookies(array $populate_objects = null)
     {
-        $this->populateSuperGlobal($_COOKIE, 'cookie', $populate_objects);
+        $this->populateSuperGlobal(idx($this->globals, 'cookie', $_COOKIE), 'cookie', $populate_objects);
+    }
+
+    /**
+     * Retrieves a cookie value. Has to be loaded with
+     * `$this->populateFromCookies()` first.
+     *
+     * @param string $name
+     * @param mixed $default_value
+     * A value that will be return if the cookie value does not exist or is not
+     * loaded
+     *
+     * @return mixed
+     */
+    public function getCookieValue($name, $default_value = null)
+    {
+        $param_name = 'cookie-' . $name;
+        return $this->getValue($param_name, $default_value);
+    }
+
+    public function getGetValue($name, $default_value = null)
+    {
+        $param_name = 'get-' . $name;
+        return $this->getValue($param_name, $default_value);
+    }
+
+    public function getPostValue($name, $default_value = null)
+    {
+        $param_name = 'post-' . $name;
+        return $this->getValue($param_name, $default_value);
+    }
+
+    public function getServerValue($name, $default_value = null)
+    {
+        $param_name = 'server-' . $name;
+        return $this->getValue($param_name, $default_value);
     }
 
     /**
