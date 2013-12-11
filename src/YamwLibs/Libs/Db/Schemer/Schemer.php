@@ -39,6 +39,16 @@ class Schemer
     private static $configPath = '/config/scheme.php';
 
     /**
+     * @var Config
+     */
+    private static $config;
+
+    public static function setConfig(Config $config)
+    {
+        self::$config = $config;
+    }
+
+    /**
      * Whether a table exists in the scheme configuration
      *
      * @param string $name
@@ -120,7 +130,7 @@ class Schemer
         if (static::isTableInScheme($name)) {
             $scheme = static::getTableScheme($name);
             return $scheme['prefix_name'] === true ?
-                Config::get('mysql.table_prefix').$name :
+                self::$config->get('mysql.table_prefix').$name :
                 $scheme['prefix_name'].$name;
         }
     }

@@ -12,7 +12,9 @@ class SchemerTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        Config::setConfigPath(__DIR__ . "/mocks/config.php");
+        $config = new Config;
+        $config->setConfigPath(__DIR__ . "/mocks/config.php");
+        Schemer::setConfig($config);
         Schemer::setSchemeLocation(__DIR__ . "/mocks/scheme.php");
     }
 
