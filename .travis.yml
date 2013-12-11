@@ -1,0 +1,20 @@
+language: php
+
+services:
+  - mongodb
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+before_script:
+  - composer self-update
+  - composer install --prefer-source --dev -v
+  - mkdir -p build/logs
+
+script:
+  - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls
