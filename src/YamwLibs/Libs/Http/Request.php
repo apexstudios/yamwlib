@@ -91,7 +91,7 @@ class Request
      */
     public function populateFromPost(array $populate_objects = null)
     {
-        $this->populateSuperGlobal(idx($this->globals, 'post', $_POST), 'post', $populate_objects);
+        $this->populateSuperGlobal(isset($this->globals['post']) ? $this->globals['post'] : $_POST, 'post', $populate_objects);
     }
 
     /**
@@ -99,7 +99,7 @@ class Request
      */
     public function populateFromGet(array $populate_objects = null)
     {
-        $this->populateSuperGlobal(idx($this->globals, 'get', $_GET), 'get', $populate_objects);
+        $this->populateSuperGlobal(isset($this->globals['get']) ? $this->globals['get'] : $_GET, 'get', $populate_objects);
     }
 
     /**
@@ -107,12 +107,12 @@ class Request
      */
     public function populateFromServer(array $populate_objects = null)
     {
-        $this->populateSuperGlobal(idx($this->globals, 'server', $_SERVER), 'server', $populate_objects);
+        $this->populateSuperGlobal(isset($this->globals['server']) ? $this->globals['server'] : $_SERVER, 'server', $populate_objects);
     }
 
     public function populateFromCookies(array $populate_objects = null)
     {
-        $this->populateSuperGlobal(idx($this->globals, 'cookie', $_COOKIE), 'cookie', $populate_objects);
+        $this->populateSuperGlobal(isset($this->globals['cookie']) ? $this->globals['cookie'] : $_COOKIE, 'cookie', $populate_objects);
     }
 
     /**
