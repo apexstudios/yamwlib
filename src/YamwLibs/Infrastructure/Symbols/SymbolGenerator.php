@@ -22,10 +22,10 @@ class SymbolGenerator
         $this->parser = new SymbolParser($this);
     }
 
-    public function parseFiles(array $files)
+    public function parseFiles(array $files, $basePath = '')
     {
         foreach ($files as $file) {
-            $this->parser->parseFile($file);
+            $this->parser->parseFile($file, $basePath);
         }
     }
 

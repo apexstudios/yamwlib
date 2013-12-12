@@ -27,10 +27,10 @@ class SymbolParser
         $this->parser = new \PHPParser_Parser(new \PHPParser_Lexer);
     }
 
-    public function parseFile($file)
+    public function parseFile($file, $basePath = '')
     {
         try {
-            $code = file_get_contents($file);
+            $code = file_get_contents($basePath . $file);
             $stmts = $this->parser->parse($code);
         } catch (\PHPParser_Error $exc) {
             echo "\nI suspect there was a syntax error in $file\n";
