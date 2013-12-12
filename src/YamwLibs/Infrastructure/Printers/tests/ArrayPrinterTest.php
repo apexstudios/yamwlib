@@ -11,7 +11,7 @@ class ArrayPrinterTest extends \PHPUnit_Framework_TestCase
     public function testCanPrint()
     {
         $printer = new ArrayPrinter();
-        $output = $printer->printForFile(["hi", "bar" => "baz", ["bum"]]);
+        $output = $printer->printForFile(array("hi", "bar" => "baz", array("bum")));
         $exp = <<<TTT
 
 
@@ -31,7 +31,7 @@ TTT;
     {
         $printer = new ArrayPrinter();
         $printer->setDoIndent(false);
-        $output = $printer->printForFile(["hi", "baz", ["bum"]]);
+        $output = $printer->printForFile(array("hi", "baz", array("bum")));
         $exp = <<<TTT
 
 
@@ -51,7 +51,7 @@ TTT;
     {
         $printer = new ArrayPrinter();
         $printer->setIndentSize(4);
-        $output = $printer->printForFile(["hi", "baz", ["bum"]]);
+        $output = $printer->printForFile(array("hi", "baz", array("bum")));
         $exp = <<<TTT
 
 
