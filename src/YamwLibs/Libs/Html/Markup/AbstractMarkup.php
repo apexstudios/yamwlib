@@ -75,7 +75,7 @@ abstract class AbstractMarkup implements YamwMarkupInterface, ViewInterface
         if (
             !is_scalar($content) &&
             $content !== null &&
-            !($content instanceof MarkupInterface)
+            !($content instanceof YamwMarkupInterface)
         ) {
             throw new \InvalidArgumentException();
         }
@@ -108,12 +108,12 @@ abstract class AbstractMarkup implements YamwMarkupInterface, ViewInterface
     public function appendContent($content)
     {
         // ViewInterface objects produce safe HTML
-        if (is_object($content) && !($content instanceof MarkupInterface) &&
+        if (is_object($content) && !($content instanceof YamwMarkupInterface) &&
             $content instanceof ViewInterface) {
             $content = new SafeTextNode($content);
         }
 
-        if (!is_scalar($content) && !($content instanceof MarkupInterface)) {
+        if (!is_scalar($content) && !($content instanceof YamwMarkupInterface)) {
             throw new \InvalidArgumentException();
         }
 
