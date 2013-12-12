@@ -20,7 +20,6 @@ class ResCompilerTest extends \PHPUnit_Framework_TestCase
 
         $resC = new ResCompiler('css');
         foreach ($fileList as $file) {
-            var_dump($file);
             $resC->pushResource($file);
         }
 
