@@ -55,7 +55,7 @@ class SymbolLoader
     public function __construct($rootDir)
     {
         $this->rootDir = $rootDir;
-        $symbolMap = include $this->rootDir . '/__symbol_map__.php');
+        $symbolMap = include $this->rootDir . '/__symbol_map__.php';
         $this->locClasses = $symbolMap["locations"]["classes"];
         $this->locFunctions = $symbolMap["locations"]["functions"];
         $this->treeDerivs = $symbolMap["xmap"]["derivations"];
