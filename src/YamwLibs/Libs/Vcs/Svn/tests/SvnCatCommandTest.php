@@ -38,7 +38,7 @@ class SvnCatCommandTest extends SharedSvnCommandTests
         // Run the update command
         $ret_val = -1;
         $output = $command1->runCommand($ret_val);
-        self::assertSame(0, $ret_val, "Error: Command returned 1! Output:\n" . $output);
+        self::assertSame(0, $ret_val, "Error: Command returned 1! Output:\n" . print_r($output));
 
         self::assertEqualsMock("TestClass.r2.php", $output);
     }
