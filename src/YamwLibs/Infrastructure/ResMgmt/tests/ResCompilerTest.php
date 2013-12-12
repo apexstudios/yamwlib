@@ -13,10 +13,10 @@ class ResCompilerTest extends \PHPUnit_Framework_TestCase
         $basePath = __DIR__ . '/mocks/';
         $cmpPath = $basePath . 'output';
         $cmpContent = file_get_contents($cmpPath);
-        $fileList = [
+        $fileList = array(
             $basePath . 'file1.less',
             $basePath . 'file2.less',
-        ];
+        );
 
         $resC = new ResCompiler('css');
         foreach ($fileList as $file) {
