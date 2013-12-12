@@ -86,6 +86,6 @@ class ResCompiler
 
     private function trim($string)
     {
-        return trim($string, ' /\\.');
+        return rtrim($string, ' /\\.');
     }
 }
