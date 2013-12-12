@@ -61,7 +61,7 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
         $repoFilePath = self::getCwdPath($file);
 
         self::assertEquals(
-            trim(self::$url = str_replace("\\", "/", file_get_contents($mockFilePath))),
+            trim(self::$url = str_replace("\\", DIRECTORY_SEPARATOR, file_get_contents($mockFilePath))),
             trim(file_get_contents($repoFilePath)),
             "File {$file}@{$rev} did not match the mock file!"
         );
@@ -76,7 +76,7 @@ abstract class SharedSvnCommandTests extends \PHPUnit_Framework_TestCase
         }
 
         self::assertEquals(
-            trim(self::$url = str_replace("\\", "/", file_get_contents($mockFilePath))),
+            trim(self::$url = str_replace("\\", DIRECTORY_SEPARATOR, file_get_contents($mockFilePath))),
             trim($actual)
         );
     }
