@@ -30,7 +30,7 @@ class SymbolParser
     public function parseFile($file)
     {
         try {
-            $code = file_get_contents(path($file));
+            $code = file_get_contents($file);
             $stmts = $this->parser->parse($code);
         } catch (\PHPParser_Error $exc) {
             echo "\nI suspect there was a syntax error in $file\n";
