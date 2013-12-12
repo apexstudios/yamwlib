@@ -33,9 +33,9 @@ class ResMgr
     private static $resourceMap = [];
 
     private $resources = [
-        'css' => [],
-        'js'  => [],
-        'pck' => [],
+        'css' => array(),
+        'js'  => array(),
+        'pck' => array(),
     ];
 
     public static function init($path = '__resource_map__.php')
@@ -53,7 +53,7 @@ class ResMgr
 
     private function pushResource($stackName, $resource)
     {
-        BA::assertIsEnum($stackName, ['css', 'js']);
+        BA::assertIsEnum($stackName, array('css', 'js'));
 
         if (!isset($this->resources[$stackName][$resource])) {
             $this->resources[$stackName][$resource] = true;
