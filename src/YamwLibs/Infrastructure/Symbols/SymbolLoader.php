@@ -32,6 +32,8 @@ class SymbolLoader
      * @var array
      */
     private $treeImpls;
+    
+    private $rootDir;
 
     private $allSymbols;
     private $allLocations;
@@ -50,9 +52,10 @@ class SymbolLoader
         return self::$instance;
     }
 
-    public function __construct()
+    public function __construct($rootDir)
     {
-        $symbolMap = include path('__symbol_map__.php');
+        $this->rootDir = $rootDir;
+        $symbolMap = include $this->rootDir . '/__symbol_map__.php');
         $this->locClasses = $symbolMap["locations"]["classes"];
         $this->locFunctions = $symbolMap["locations"]["functions"];
         $this->treeDerivs = $symbolMap["xmap"]["derivations"];
@@ -82,25 +85,22 @@ class SymbolLoader
             $this->allLocations = array_unique($this->allSymbols);
         }
 
-        $root = path();
         foreach ($this->allLocations as $location) {
-            include_once $root . $location;
+            include_once $this->rootDir . $location;
         }
     }
 
     public function loadAllFunctions()
     {
-        $root = path();
         foreach ($this->allFunctions as $function) {
-            include_once $root . $function;
+            include_once $this->rootDir . $function;
         }
     }
 
     public function loadAllClasses()
     {
-        $root = path();
         foreach ($this->allClasses as $class) {
-            include_once $root . $class;
+            include_once $this->rootDir . $class;
         }
     }
 
@@ -108,7 +108,7 @@ class SymbolLoader
     {
         // Don't throw, since we may have other autoloaders in the stack
         if (isset($this->locClasses[$fqClassName])) {
-            $classLocation = path($this->locClasses[$fqClassName]);
+            $classLocation = $this->rootDir . $this->locClasses[$fqClassName];
             if (file_exists($classLocation)) {
                 include_once $classLocation;
                 return true;
