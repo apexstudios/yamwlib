@@ -30,6 +30,7 @@ class SvnCatCommandTest extends SharedSvnCommandTests
     }
 
     public function testCatFileFromRevision() {
+        echo 'DerpDerp';
         $command1 = new SvnCatCommand($this->getUrl() . "/trunk/TestClass.php");
 
         // Set the revision
