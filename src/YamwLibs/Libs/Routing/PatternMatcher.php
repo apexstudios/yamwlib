@@ -16,9 +16,7 @@ namespace YamwLibs\Libs\Routing;
  *   "module" => "home"
  * ]
  *
- * @author AnhNhan <anhnhan@outlook.com>
- * @package RZWebStack
- * @subpackage PatternMatchers
+ * @author Anh Nhan Nguyen <anhnhan@outlook.com>
  */
 class PatternMatcher
 {

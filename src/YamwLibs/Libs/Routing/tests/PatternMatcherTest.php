@@ -2,7 +2,7 @@
 namespace YamwLibs\Libs\Routing;
 
 /**
- * @author AnhNhan <anhnhan@outlook.com>
+ * @author Anh Nhan Nguyen <anhnhan@outlook.com>
  */
 class PatternMatcherTest extends \PHPUnit_Framework_TestCase
 {
