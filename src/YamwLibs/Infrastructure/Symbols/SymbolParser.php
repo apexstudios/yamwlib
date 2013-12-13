@@ -116,25 +116,41 @@ class SymbolParser
         $rootName = "\\" . $smblName;
         $cmpFunction = $isInterface ? "interface_exists" : "class_exists";
 
-        if ($cmpFunction($rootName)) {
-            return $this->sanitizeSymbolName($rootName);
+        try {
+            if ($cmpFunction($rootName)) {
+                return $this->sanitizeSymbolName($rootName);
+            }
+        } catch (\Exception $e) {
+            // Discard
         }
 
         $nmspName = $namespace . "\\" . $smblName;
-        if ($cmpFunction($nmspName)) {
-            return $this->sanitizeSymbolName($nmspName);
+        try {
+            if ($cmpFunction($nmspName)) {
+                return $this->sanitizeSymbolName($nmspName);
+            }
+        } catch (\Exception $e) {
+            // Discard
         }
 
         foreach ($uses as $usedNmsp) {
             $derivClassName = implode("\\", $usedNmsp->name->parts);
-            if ($cmpFunction($derivClassName)) {
-                return $this->sanitizeSymbolName($derivClassName);
+            try {
+                if ($cmpFunction($derivClassName)) {
+                    return $this->sanitizeSymbolName($derivClassName);
+                }
+            } catch (\Exception $e) {
+                // Discard
             }
 
             $derivClassName = implode("\\", $usedNmsp->name->parts) .
                 "\\" . $smblName;
-            if ($cmpFunction($derivClassName)) {
-                return $this->sanitizeSymbolName($derivClassName);
+            try {
+                if ($cmpFunction($derivClassName)) {
+                    return $this->sanitizeSymbolName($derivClassName);
+                }
+            } catch (\Exception $e) {
+                // Discard
             }
         }
     }
