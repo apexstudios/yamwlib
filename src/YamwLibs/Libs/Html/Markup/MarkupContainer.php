@@ -6,7 +6,7 @@ use \YamwLibs\Libs\Html\Interfaces\YamwMarkupInterface;
 class MarkupContainer implements YamwMarkupInterface, \Countable
 {
     private $data = array();
-    private $pretty = true;
+    private $pretty = false;
 
     public function __construct(YamwMarkupInterface $_markup = null)
     {
@@ -27,13 +27,13 @@ class MarkupContainer implements YamwMarkupInterface, \Countable
 
     public function makePretty($lvl = 1)
     {
-        $this->pretty = ++$lvl;
+        // No effect
         return $this;
     }
 
     public function makeDirty()
     {
-        $this->pretty = false;
+        // No effect
         return $this;
     }
 
@@ -79,25 +79,14 @@ class MarkupContainer implements YamwMarkupInterface, \Countable
 
     public function __toString()
     {
-        $data = '';
-
         if (!count($this->data)) {
-            return $data;
+            return '';
         }
 
-        foreach ($this->data as $markup) {
-            if ($this->isPretty()) {
-                $indentation = str_repeat("    ", $this->isPretty());
-                if (is_object($markup)) {
-                    $markup->makePretty($this->isPretty());
-                }
-            } else {
-                $indentation = "";
-            }
+        print_r($this->data);
+        array_walk($this->data, function (YamwMarkupInterface &$x) { $x = $x->__toString(); });
 
-            $data .= $indentation.$markup;
-        }
-        return $data;
+        return implode("", $this->data);
     }
 
     public function count()

@@ -47,7 +47,7 @@ class XmlTag extends AbstractMarkup
 
     public function getOption($name)
     {
-        return isset($this->options[$name]) ? $this->options[$name] : null;
+        return idx($this->options, $name);
     }
 
     public function getOptions()
@@ -65,28 +65,23 @@ class XmlTag extends AbstractMarkup
         $name = $this->getTagName();
         $contents = $this->getContent();
 
-        $indentation = "";
-        $pretty = $this->isPretty();
-        $contents->makePretty($pretty);
-        if ($pretty) {
-            $indentation = str_repeat("    ", $pretty);
-        }
-
         $generated_options = "";
         if ($this->options) {
+            ob_start();
             foreach ($this->options as $attr => $val) {
-                $generated_options .= " $attr";
+                echo " $attr";
                 if ($val) {
-                    $generated_options .= "=\"$val\"";
+                    echo "=\"$val\"";
                 }
             }
+            $generated_options = ob_get_clean();
         }
 
         $end = " /";
         if (count($contents)) {
-            $end = ">".trim((string)$contents)."</{$name}";
+            $end = ">".$contents."</{$name}";
         }
 
-        return "{$indentation}<{$name}{$generated_options}{$end}>";
+        return "<{$name}{$generated_options}{$end}>";
     }
 }
