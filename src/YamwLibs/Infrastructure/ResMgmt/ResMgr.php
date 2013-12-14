@@ -71,7 +71,7 @@ class ResMgr
         $resources = [];
         foreach ($this->resources['css'] as $cssRes => $_) {
             $resEntry = $this->attemptToReadFromResMap("css", $cssRes);
-            $resName = sprintf('%s.%s?v=%s', $cssRes, 'css', $resEntry['hash']);
+            $resName = sprintf('%s/%s', $cssRes, $resEntry['hash']);
             $resources[] = $resName;
         }
         return $resources;
