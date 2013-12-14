@@ -137,7 +137,7 @@ class SymbolLoader
         if (isset($this->treeDerivs[$parentClass])) {
             return $this->treeDerivs[$parentClass];
         } else {
-            throw new YamwLibsException(
+            throw new \Exception(
                 "No classes derive from $parentClass!"
             );
         }
