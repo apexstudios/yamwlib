@@ -53,7 +53,7 @@ class SymbolLoader
         return self::$instance;
     }
 
-    public static setStaticRootDir($rootDir)
+    public static function setStaticRootDir($rootDir)
     {
         self::$staticRootDir = $rootDir;
     }
