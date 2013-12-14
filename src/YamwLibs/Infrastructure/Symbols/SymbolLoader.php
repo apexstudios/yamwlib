@@ -12,6 +12,7 @@ class SymbolLoader
      * @var SymbolLoader
      */
     private static $instance;
+    private static $staticRootDir;
 
     /**
      * @var array
@@ -32,7 +33,7 @@ class SymbolLoader
      * @var array
      */
     private $treeImpls;
-    
+
     private $rootDir;
 
     private $allSymbols;
@@ -47,9 +48,14 @@ class SymbolLoader
     {
         if (!self::$instance) {
             $class = __CLASS__;
-            self::$instance = new $class;
+            self::$instance = new $class(self::$staticRootDir);
         }
         return self::$instance;
+    }
+
+    public static setStaticRootDir($rootDir)
+    {
+        self::$staticRootDir = $rootDir;
     }
 
     public function __construct($rootDir)
