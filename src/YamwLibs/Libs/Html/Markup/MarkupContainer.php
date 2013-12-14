@@ -83,7 +83,6 @@ class MarkupContainer implements YamwMarkupInterface, \Countable
             return '';
         }
 
-        print_r($this->data);
         array_walk($this->data, function (YamwMarkupInterface &$x) { $x = $x->__toString(); });
 
         return implode("", $this->data);
