@@ -27,6 +27,7 @@ abstract class AbstractMarkup implements YamwMarkupInterface, ViewInterface
             throw new \InvalidArgumentException();
         }
         $this->name = $name;
+        $this->content = new MarkupContainer();
         $this->setContent($content);
     }
 
@@ -72,20 +73,15 @@ abstract class AbstractMarkup implements YamwMarkupInterface, ViewInterface
      */
     public function setContent($content)
     {
-        if (
-            !is_scalar($content) &&
-            $content !== null &&
-            !($content instanceof YamwMarkupInterface)
-        ) {
-            throw new \InvalidArgumentException();
-        }
-
-        if (!$this->content) {
-            $this->content = new MarkupContainer();
-        }
-
         if (is_null($content)) {
             return $this;
+        }
+
+        if (
+            !is_scalar($content) &&
+            !($content instanceof YamwMarkupInterface)
+        ) {
+            throw new \InvalidArgumentException("\$content has to be a YamwMarkupInterface");
         }
 
         if (is_scalar($content)) {

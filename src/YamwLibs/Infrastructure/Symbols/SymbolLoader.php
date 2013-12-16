@@ -137,9 +137,7 @@ class SymbolLoader
         if (isset($this->treeDerivs[$parentClass])) {
             return $this->treeDerivs[$parentClass];
         } else {
-            throw new \Exception(
-                "No classes derive from $parentClass!"
-            );
+            return array();
         }
     }
 }
