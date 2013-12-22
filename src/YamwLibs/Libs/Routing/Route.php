@@ -99,6 +99,7 @@ class Route
         }
 
         $variableList['target'] = $this->target;
+        $variableList['route']  = $this;
 
         return $variableList;
     }
