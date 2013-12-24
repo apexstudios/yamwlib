@@ -103,13 +103,24 @@ class Request
     }
 
     /**
-     * Populates the Request object with data from the get superglobal
+     * Populates the Request object with data from the request superglobal
+     */
+    public function populateFromRequest(array $populate_objects = null)
+    {
+        $this->populateSuperGlobal(isset($this->globals['request']) ? $this->globals['request'] : $_REQUEST, 'request', $populate_objects);
+    }
+
+    /**
+     * Populates the Request object with data from the server superglobal
      */
     public function populateFromServer(array $populate_objects = null)
     {
         $this->populateSuperGlobal(isset($this->globals['server']) ? $this->globals['server'] : $_SERVER, 'server', $populate_objects);
     }
 
+    /**
+     * Populates the Request object with data from the cookie superglobal
+     */
     public function populateFromCookies(array $populate_objects = null)
     {
         $this->populateSuperGlobal(isset($this->globals['cookie']) ? $this->globals['cookie'] : $_COOKIE, 'cookie', $populate_objects);
@@ -141,6 +152,12 @@ class Request
     public function getPostValue($name, $default_value = null)
     {
         $param_name = 'post-' . $name;
+        return $this->getValue($param_name, $default_value);
+    }
+
+    public function getRequestValue($name, $default_value = null)
+    {
+        $param_name = 'request-' . $name;
         return $this->getValue($param_name, $default_value);
     }
 
