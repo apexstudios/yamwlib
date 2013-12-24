@@ -66,11 +66,27 @@ class ResMgr
         return $this->pushResource('css', $name);
     }
 
+    public function requireJS($name)
+    {
+        return $this->pushResource('js', $name);
+    }
+
     public function fetchRequiredCSSResources()
     {
         $resources = [];
         foreach ($this->resources['css'] as $cssRes => $_) {
             $resEntry = $this->attemptToReadFromResMap("css", $cssRes);
+            $resName = sprintf('%s/%s', $cssRes, $resEntry['hash']);
+            $resources[] = $resName;
+        }
+        return $resources;
+    }
+
+    public function fetchRequiredJSResources()
+    {
+        $resources = [];
+        foreach ($this->resources['js'] as $cssRes => $_) {
+            $resEntry = $this->attemptToReadFromResMap("js", $cssRes);
             $resName = sprintf('%s/%s', $cssRes, $resEntry['hash']);
             $resources[] = $resName;
         }
