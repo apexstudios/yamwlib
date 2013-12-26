@@ -69,4 +69,32 @@ class HtmlTag extends XmlTag
     {
         return (string)$this->getOption('id');
     }
+
+    public function __toString()
+    {
+        // These are the only tags that can self-close
+        $selfClosingTags = array(
+            'area'    => true,
+            'base'    => true,
+            'br'      => true,
+            'col'     => true,
+            'command' => true,
+            'embed'   => true,
+            'hr'      => true,
+            'img'     => true,
+            'input'   => true,
+            'link'    => true,
+            'meta'    => true,
+            'param'   => true,
+            'source'  => true,
+        );
+        if (!isset($selfClosingTags[$this->getTagName()]) && $this->getContent()->count() === 0) {
+            $this->setContent("");
+        } else if (isset($selfClosingTags[$this->getTagName()])) {
+            // Force-close them. No mercy.
+            $this->setContent(null);
+        }
+
+        return parent::__toString();
+    }
 }
