@@ -31,7 +31,7 @@ class Router
      */
     public function registerRoute(Route $route)
     {
-        $this->routes[$route->getName()] = $route;
+        $this->routes[] = $route;
         return $this;
     }
 
