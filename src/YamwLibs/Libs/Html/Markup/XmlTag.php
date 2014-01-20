@@ -34,12 +34,12 @@ class XmlTag extends AbstractMarkup
                     $this->options[$v] = '';
                 } else {
                     $k = htmlspecialchars($k);
-                    $this->options[$k] = $v;
+                    $this->options[$k] = $v === null ? null : new TextNode($v);
                 }
             }
         } else {
             $attr = htmlspecialchars($attr);
-            $this->options[$attr] = new TextNode($val);
+            $this->options[$attr] = $val === null ? null : new TextNode($val);
         }
 
         return $this;
@@ -69,6 +69,9 @@ class XmlTag extends AbstractMarkup
         if ($this->options) {
             ob_start();
             foreach ($this->options as $attr => $val) {
+                if ($val === null) {
+                    continue;
+                }
                 echo " $attr";
                 if ($val) {
                     echo "=\"$val\"";
