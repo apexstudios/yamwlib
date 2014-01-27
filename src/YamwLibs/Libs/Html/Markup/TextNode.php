@@ -38,7 +38,25 @@ class TextNode implements YamwMarkupInterface, ViewInterface
 
     public function __toString()
     {
-        return htmlentities((string)$this->content);
+        return self::escape($this->content);
+    }
+
+    public static function escape($text)
+    {
+        if (is_object($text)) {
+            $whitelist = array(
+                'YamwLibs\Libs\Html\Interfaces\YamwMarkupInterface',
+                'YamwLibs\Libs\View\ViewInterface',
+                'PhutilSafeHTML',
+                'PhutilSafeHTMLProducerInterface,'
+            );
+            foreach ($whitelist as $allowed_class) {
+                if (is_a($text, $allowed_class)) {
+                    return (string) $text;
+                }
+            }
+        }
+        return htmlentities((string)$text);
     }
 
     /**
