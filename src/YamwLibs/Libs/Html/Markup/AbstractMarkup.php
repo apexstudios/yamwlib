@@ -74,6 +74,7 @@ abstract class AbstractMarkup implements YamwMarkupInterface, ViewInterface
     public function setContent($content)
     {
         if (is_null($content)) {
+            $this->content = new MarkupContainer;
             return $this;
         }
 
