@@ -102,7 +102,7 @@ abstract class AbstractMarkup implements YamwMarkupInterface, ViewInterface
      *
      * @return \YamwLibs\Libs\Html\Markup\AbstractMarkup
      */
-    public function appendContent($content)
+    public function append($content)
     {
         // ViewInterface objects produce safe HTML
         if (is_object($content) && !($content instanceof YamwMarkupInterface) &&
