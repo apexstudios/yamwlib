@@ -13,6 +13,10 @@ class HtmlTag extends XmlTag
 {
     public function addClass($class)
     {
+        if (is_null($class))
+        {
+            return $this;
+        }
         if (!is_string($class) && !is_array($class)) {
             throw new \Exception('$class is not a valid class!');
         }
@@ -36,16 +40,21 @@ class HtmlTag extends XmlTag
 
     public function removeClass($name)
     {
+        if (is_null($name))
+        {
+            return $this;
+        }
+
         $name = $name . " ";
         $string = $this->getOption('class');
         $current_classes = $string ?
             substr($string, 0, strlen($string) - 1) : null;
 
-        if (strpos($current_classes, $name)) {
-            $current_classes = preg_replace("/$name/i", "", $current_classes);
-        }
+        $name = preg_quote($name);
+        $current_classes = preg_replace("/(?<=\\b)$name(?=\b)/i", "", $current_classes);
 
         $this->addOption('class', $current_classes. " ");
+        return $this;
     }
 
     public function getClasses()
