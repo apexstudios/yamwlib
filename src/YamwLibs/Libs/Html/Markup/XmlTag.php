@@ -21,7 +21,7 @@ class XmlTag extends AbstractMarkup
     public function addOption($attr, $val=null)
     {
         if(
-            is_object($attr) || is_object($val) ||
+            is_object($attr) ||
             (is_array($attr) && $val !== null) ||
             is_array($val)
         ) {
