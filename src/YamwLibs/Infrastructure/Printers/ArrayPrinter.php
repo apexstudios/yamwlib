@@ -54,12 +54,12 @@ class ArrayPrinter
     {
         if (is_numeric($key)) {
             $this->printSpacedLine(
-                sprintf('"%s",', $value),
+                sprintf("'%s',", $value),
                 $lvl
             );
         } else {
             $this->printSpacedLine(
-                sprintf('"%s" => "%s",', $key, $value),
+                sprintf("'%s' => '%s',", $key, $value),
                 $lvl
             );
         }
