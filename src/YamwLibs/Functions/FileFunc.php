@@ -33,6 +33,10 @@ class FileFunc
      */
     public static function recursiveScanForDirectories($dirName, $extension = '.*')
     {
+        if (!file_exists($dirName)) {
+            error_log("Directory does not exist: ${dirName}");
+            return [];
+        }
         $dirList = scandir($dirName);
         $files = array();
 
